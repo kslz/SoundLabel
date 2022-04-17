@@ -1,6 +1,10 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QFrame
+from PySide6.QtCore import Qt
+
+import global_obj
+
+from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget
 
 from ui import ui_main, ui_gui, ui_inputdata
 
@@ -38,6 +42,10 @@ class MainWindow(QMainWindow):
 
     def to_inputfile(self):
         print("前往导入文件窗口")
+        window1.close()
+        window3.refresh_data()
+        window3.show()
+
 
     def to_outputfile(self):
         print("前往导出数据集窗口")
@@ -52,20 +60,58 @@ class InputDataWindow(QMainWindow):
         self.ui = ui_inputdata.Ui_MainWindow()
         self.ui.setupUi(self)
 
-    def double_clicked_file(self, a, b):
-        print(f"导入文件 {a} {b}")
+    def refresh_data(self):
+        sound_dict = global_obj.get_value("sound_dict")
+        print(sound_dict)
+        for key in sound_dict.keys():
+            # print(key)
+            if sound_dict[key][0] == "" or sound_dict[key][1] == "":
+                continue
+            row_count = window3.ui.dataTableWidget.rowCount()
+            window3.ui.dataTableWidget.insertRow(row_count)
+            item1 = QTableWidgetItem()
+            item1.setText(key)
+            item1.setFlags(Qt.ItemIsEnabled)
+            item2 = QTableWidgetItem()
+            item2.setText(sound_dict[key][0] + "," + sound_dict[key][1])
+            item2.setFlags(Qt.ItemIsEnabled)
+
+            window3.ui.dataTableWidget.setItem(row_count, 0, item1)
+            window3.ui.dataTableWidget.setItem(row_count, 1, item2)
+            window3.ui.dataTableWidget.setCellWidget(row_count, 2, self.button_for_row(str(key)))
+            window3.ui.dataTableWidget.resizeColumnsToContents()  # 宽高自适应
+
+
+    def input_file(self,name):
+        print(f"导入文件 {name}")
+
+    def double_clicked_file(self, a):
+        print(f"导入文件 {a}")
 
     def back_to_main(self):
         print(f"返回首页")
 
+    def button_for_row(self,name):
+        input_btn = QPushButton('查看')
+        print(name)
+        input_btn.clicked.connect(lambda: self.input_file(name))
+        return input_btn
 
-if __name__ == '__main__':
+
+def main():
     app = QApplication([])
+
+    # coder 不怎么机灵
+    global window1
+    global window2
+    global window3
     window1 = MainWindow()
     window2 = WorkSpaceWindow()
     window3 = InputDataWindow()
     window1.show()
-    window2.show()
-    window3.show()
 
     sys.exit(app.exec())
+
+
+if __name__ == '__main__':
+    main()

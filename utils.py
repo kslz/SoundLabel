@@ -1,9 +1,8 @@
+import os
 import sqlite3
 
 from pydub import AudioSegment
 
-db_path = "db/data.db"
-file_dict_path = "filepath/"
 
 
 class LiteDB:
@@ -33,7 +32,7 @@ class MySound:
         self.checked = info_dict["checked"]
         self.can_use = info_dict["can_use"]
         self.file_name = info_dict["file_name"]
-        self.sound = cut_sound(info_dict["all_sound"],self.start,self.end)
+        self.sound = cut_sound(info_dict["all_sound"], self.start, self.end)
 
 
 class AllSound:
@@ -51,3 +50,40 @@ def get_sound(file_path):
 
 def cut_sound(sound, start, end):
     return sound[start:end]
+
+
+def listdir(path, list_name, file_end=""):  # 传入存储的list
+    """
+    将目录下的文件名读存储在list中
+    :param file_end:
+    :param path:
+    :param list_name:
+    :return:
+    """
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if os.path.isdir(file_path):
+            listdir(file_path, list_name)
+        else:
+            if file_path.endswith(file_end):
+                if file_path.find(".DS_Store") != -1:
+                    continue
+                list_name.append(file_path.replace("\\", "/"))
+
+def dictdir(path, dict_name, file_end=""):  # 传入存储的dict
+    """
+    将目录下的文件名读存储在list中
+    :param file_end:
+    :param path:
+    :param dict_name:
+    :return:
+    """
+    for file in os.listdir(path):
+        file_path = os.path.join(path, file)
+        if os.path.isdir(file_path):
+            dictdir(file_path, dict_name)
+        else:
+            if file_path.endswith(file_end):
+                if file_path.find(".DS_Store") != -1:
+                    continue
+                dict_name[file_path.replace("\\", "/").split("/")[-1]] = file_path.replace("\\", "/")
