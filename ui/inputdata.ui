@@ -19,36 +19,10 @@
      <widget class="QWidget" name="widget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QTableWidget" name="tableWidget">
-         <row>
-          <property name="text">
-           <string>新建行</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>新建行</string>
-          </property>
-         </row>
-         <column>
-          <property name="text">
-           <string>文件名</string>
-          </property>
-         </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>1</string>
-          </property>
-         </item>
-         <item row="1" column="0">
-          <property name="text">
-           <string>2</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="tableWidget_2">
+        <widget class="QTableWidget" name="dataTableWidget">
+         <property name="tabletTracking">
+          <bool>false</bool>
+         </property>
          <column>
           <property name="text">
            <string>文件名</string>
@@ -56,7 +30,12 @@
          </column>
          <column>
           <property name="text">
-           <string>不可导入原因</string>
+           <string>文件路径</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>操作</string>
           </property>
          </column>
         </widget>
@@ -71,7 +50,8 @@
         <widget class="QLabel" name="label">
          <property name="text">
           <string>请双击左上角的表格来导入对应的音频和字幕
-注意：音频只支持wav和mp3格式，且音频和字幕的文件名必须相同，后缀可以不同</string>
+注意：音频只支持wav,acc和mp3格式
+且音频和字幕的文件名必须相同，后缀可以不同</string>
          </property>
         </widget>
        </item>
@@ -109,22 +89,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>tableWidget</sender>
-   <signal>cellDoubleClicked(int,int)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>double_clicked_file()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>174</x>
-     <y>123</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>4</x>
-     <y>86</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton</sender>
    <signal>clicked()</signal>
