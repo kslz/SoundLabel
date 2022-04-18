@@ -36,6 +36,7 @@ class WorkSpaceWindow(QFrame):
         print(f"表格单元格被双击 {a.text()}")
 
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -52,8 +53,63 @@ class MainWindow(QMainWindow):
     def to_outputfile(self):
         print("前往导出数据集窗口")
 
-    def to_workspace(self):
-        print("前往数据标注窗口")
+    def to_workspace(self,name):
+        print(f"前往数据标注窗口 {name}")
+
+    def refresh_data(self):
+        self.table_refresh()
+        pass
+
+    def table_refresh(self):
+        # 清空表格
+        while window1.ui.tableWidget.rowCount() != 0:
+            window1.ui.tableWidget.removeRow(0)
+
+        for row in self.get_row_info():
+            row_count = window1.ui.tableWidget.rowCount()
+            window1.ui.tableWidget.insertRow(row_count)
+
+            item1 = QTableWidgetItem()
+            item1.setText(row[0])
+            item1.setFlags(Qt.ItemIsEnabled)
+
+            item2 = QTableWidgetItem()
+            item2.setText(row[1])
+            item2.setFlags(Qt.ItemIsEnabled)
+
+            window1.ui.tableWidget.setItem(row_count, 0, item1)
+            window1.ui.tableWidget.setItem(row_count, 1, item2)
+            window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0])))
+            window1.ui.tableWidget.setCellWidget(row_count, 4, self.button_delete_for_row(str(row[0])))
+
+
+
+    def button_workspace_for_row(self,name):
+        input_btn = QPushButton('导入')
+        input_btn.clicked.connect(lambda: self.to_workspace(name))
+        return input_btn
+
+    def button_delete_for_row(self,name):
+        input_btn = QPushButton('删除')
+        input_btn.clicked.connect(lambda: self.delete_table(name))
+        return input_btn
+
+    def get_row_info(self):
+        db = global_obj.get_value("db")
+        row_info = []
+        tables_list = db.select_tables_list()
+        for table in tables_list:
+            if table.startswith("_"):
+                continue
+            file_path = db.select_sound_path(table)
+            row_info.append([table,file_path])
+        return row_info
+
+    def delete_table(self, name):
+        db = global_obj.get_value("db")
+        db.delete_sound_table(name)
+        self.table_refresh()
+
 
 
 class InputDataWindow(QMainWindow):
@@ -65,6 +121,11 @@ class InputDataWindow(QMainWindow):
     def refresh_data(self):
         sound_dict = global_obj.get_value("sound_dict")
         tables_list = global_obj.get_value("db").select_tables_list()
+
+        # 清空表格
+        while window3.ui.dataTableWidget.rowCount() != 0:
+            window3.ui.dataTableWidget.removeRow(0)
+
         for key in sound_dict.keys():
             # print(key)
             if sound_dict[key][0] == "" or sound_dict[key][1] == "":
@@ -97,6 +158,10 @@ class InputDataWindow(QMainWindow):
 
     def back_to_main(self):
         print(f"返回首页")
+        window3.close()
+        window1.refresh_data()
+        window1.show()
+
 
     def button_for_row(self,name,tables_list):
         if tables_list.count(name) == 0:
@@ -117,6 +182,7 @@ def main():
     global window2
     global window3
     window1 = MainWindow()
+    window1.refresh_data()
     window2 = WorkSpaceWindow()
     window3 = InputDataWindow()
     window1.show()

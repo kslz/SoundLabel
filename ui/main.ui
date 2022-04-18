@@ -33,57 +33,37 @@
        <item>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>请在此表中选中你要操作的数据集</string>
+          <string>请在此表中选择你要操作的数据集</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QListWidget" name="listWidget">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget_2" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>进入数据集编辑页面</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget_3" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>导出数据集</string>
-         </property>
+        <widget class="QTableWidget" name="tableWidget">
+         <column>
+          <property name="text">
+           <string>新建列</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>文件路径</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>进入编辑</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>导出</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>删除</string>
+          </property>
+         </column>
         </widget>
        </item>
       </layout>
@@ -107,38 +87,6 @@
     <hint type="destinationlabel">
      <x>345</x>
      <y>64</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_3</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>to_outputfile()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>434</x>
-     <y>382</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>305</x>
-     <y>152</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>to_workspace()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>532</x>
-     <y>304</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>550</x>
-     <y>258</y>
     </hint>
    </hints>
   </connection>

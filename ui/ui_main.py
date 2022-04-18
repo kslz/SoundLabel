@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QListWidget, QListWidgetItem,
-    QMainWindow, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QHeaderView, QLabel, QMainWindow,
+    QPushButton, QSizePolicy, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -45,52 +45,30 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.listWidget = QListWidget(self.widget)
-        self.listWidget.setObjectName(u"listWidget")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy)
+        self.tableWidget = QTableWidget(self.widget)
+        if (self.tableWidget.columnCount() < 5):
+            self.tableWidget.setColumnCount(5)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        self.tableWidget.setObjectName(u"tableWidget")
 
-        self.verticalLayout.addWidget(self.listWidget)
+        self.verticalLayout.addWidget(self.tableWidget)
 
 
         self.verticalLayout_2.addWidget(self.widget)
-
-        self.widget_2 = QWidget(self.centralwidget)
-        self.widget_2.setObjectName(u"widget_2")
-        self.verticalLayout_3 = QVBoxLayout(self.widget_2)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.pushButton_2 = QPushButton(self.widget_2)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setFont(font)
-
-        self.verticalLayout_3.addWidget(self.pushButton_2)
-
-
-        self.verticalLayout_2.addWidget(self.widget_2)
-
-        self.widget_3 = QWidget(self.centralwidget)
-        self.widget_3.setObjectName(u"widget_3")
-        self.verticalLayout_4 = QVBoxLayout(self.widget_3)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.pushButton_3 = QPushButton(self.widget_3)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setEnabled(True)
-        self.pushButton_3.setFont(font)
-
-        self.verticalLayout_4.addWidget(self.pushButton_3)
-
-
-        self.verticalLayout_2.addWidget(self.widget_3)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
         self.pushButton.clicked.connect(MainWindow.to_inputfile)
-        self.pushButton_3.clicked.connect(MainWindow.to_outputfile)
-        self.pushButton_2.clicked.connect(MainWindow.to_workspace)
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
@@ -98,8 +76,16 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u5165\u53e3", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u5b57\u5e55\u6587\u4ef6\u548c\u97f3\u9891\u6587\u4ef6", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"\u8bf7\u5728\u6b64\u8868\u4e2d\u9009\u4e2d\u4f60\u8981\u64cd\u4f5c\u7684\u6570\u636e\u96c6", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"\u8fdb\u5165\u6570\u636e\u96c6\u7f16\u8f91\u9875\u9762", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa\u6570\u636e\u96c6", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"\u8bf7\u5728\u6b64\u8868\u4e2d\u9009\u62e9\u4f60\u8981\u64cd\u4f5c\u7684\u6570\u636e\u96c6", None))
+        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"\u65b0\u5efa\u5217", None));
+        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u8def\u5f84", None));
+        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"\u8fdb\u5165\u7f16\u8f91", None));
+        ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u51fa", None));
+        ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"\u5220\u9664", None));
     # retranslateUi
 

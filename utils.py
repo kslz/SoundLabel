@@ -2,6 +2,7 @@ import os
 import sqlite3
 
 from pydub import AudioSegment
+import time
 
 
 
@@ -23,9 +24,19 @@ class LiteDB:
             "sound_end" integer NOT NULL,
             "checked" TEXT NOT NULL DEFAULT 0,
             "can_use" integer NOT NULL DEFAULT 1,
+            "sound_file_path" TEXT NOT NULL,
             PRIMARY KEY ("sound_id"));''')
         print(f"数据表 {sound_name} 创建成功")
         self.conn.commit()
+
+    def delete_sound_table(self,sound_name):
+        c = self.conn.cursor()
+        now_time = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+        print(f'''ALTER TABLE {sound_name} RENAME TO {'_'+sound_name+'_'+now_time};''')
+        c.execute(f'''ALTER TABLE {sound_name} RENAME TO {'_'+sound_name+'_'+now_time};''')
+        print(f"数据表 {sound_name} 被改名为 {'_'+sound_name+'_'+now_time}")
+        self.conn.commit()
+
 
     def select_all(self):
         c = self.conn.cursor()
@@ -44,6 +55,14 @@ class LiteDB:
         for row in result:
             result_list.append(row[0])
         return result_list
+
+    def select_sound_path(self,name):
+        """ 根据sound name（即表名）搜索音频文件位置 """
+        c = self.conn.cursor()
+        result = c.execute(f"SELECT sound_file_path FROM {name} limit 1")
+        result_list = []
+        for row in result:
+            return row[0]
 
 
 class MySound:
