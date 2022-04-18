@@ -6,12 +6,26 @@ from pydub import AudioSegment
 
 
 class LiteDB:
-    def __init__(self):
-        self.conn = sqlite3.connect('db/data.db')
+    def __init__(self,dbpath='db/data.db'):
+        self.conn = sqlite3.connect(dbpath)
         print("数据库打开成功")
 
     def close(self):
         self.conn.close()
+        print("数据库已关闭")
+
+    def create_sound_table(self,sound_name):
+        c = self.conn.cursor()
+        c.execute(f'''CREATE TABLE "{sound_name}" (
+            "sound_id" integer NOT NULL,
+            "sound_text" TEXT NOT NULL,
+            "sound_start" integer NOT NULL,
+            "sound_end" integer NOT NULL,
+            "checked" TEXT NOT NULL DEFAULT 0,
+            "can_use" integer NOT NULL DEFAULT 1,
+            PRIMARY KEY ("sound_id"));''')
+        print(f"数据表 {sound_name} 创建成功")
+        self.conn.commit()
 
     def select_all(self):
         c = self.conn.cursor()
@@ -22,6 +36,14 @@ class LiteDB:
         c = self.conn.cursor()
         result = c.execute("SELECT sound_text,sound_start,sound_end,checked,can_use FROM sound")
         return result
+
+    def select_tables_list(self):
+        c = self.conn.cursor()
+        result = c.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
+        result_list = []
+        for row in result:
+            result_list.append(row[0])
+        return result_list
 
 
 class MySound:
@@ -87,3 +109,8 @@ def dictdir(path, dict_name, file_end=""):  # 传入存储的dict
                 if file_path.find(".DS_Store") != -1:
                     continue
                 dict_name[file_path.replace("\\", "/").split("/")[-1]] = file_path.replace("\\", "/")
+
+
+if __name__ == "__main__":
+    db1 = LiteDB()
+    print(db1.select_tables_list())
