@@ -19,12 +19,10 @@ class WorkSpaceWindow(QFrame):
         self.ui = ui_gui.Ui_Mainwindow()
         self.ui.setupUi(self)
         self.work_space_data = None
-        self.ui.tableWidget.setRowHeight(1,10)
+        self.ui.tableWidget.setRowHeight(1, 10)
         font1 = QFont()
         font1.setPointSize(10)
         self.ui.tableWidget.setFont(font1)
-
-
 
     def click_refreshBTN(self):
         print("刷新表格")
@@ -51,25 +49,63 @@ class WorkSpaceWindow(QFrame):
         db = global_obj.get_value("db")
         path = db.select_sound_path(name)
         self.work_space_data = utils.WorkSpaceData(name, path)
+        i = 0
         for sound_obj in self.work_space_data.sound_list:
-            self.sound_obj_to_row(sound_obj)
+            self.sound_obj_to_row(sound_obj, i)
+            i = i + 1  # 半自动经典for循环 index不好用
 
-    def sound_obj_to_row(self,sound_obj):
-        sound_obj = utils.MySound()
+    def sound_obj_to_row(self, sound_obj, sound_id):
+        # sound_obj = utils.MySound()
         row_count = self.ui.tableWidget.rowCount()
         self.ui.tableWidget.insertRow(row_count)
         item1 = QTableWidgetItem()
         item1.setText(sound_obj.text)
-        item1.setFlags(Qt.ItemIsEnabled)
+        item1.setFlags(Qt.ItemIsEnabled)  # 禁止编辑
 
         item2 = QTableWidgetItem()
-        item2.setText(sound_obj.text)
+        item_text1 = "已标注"
+        print(type(sound_obj.checked))
+        if sound_obj.checked == "0":
+            btn_text1 = "未标注"
+        item2.setText(item_text1)
         item2.setFlags(Qt.ItemIsEnabled)
 
-        # self.ui.tableWidget.setItem(row_count, 0, item1)
-        # self.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]), str(row[1])))
+        item3 = QTableWidgetItem()
+        item_text2 = "可用"
+        if sound_obj.checked == "0":
+            item_text2 = "不可用"
+        item3.setText(item_text2)
+        item3.setFlags(Qt.ItemIsEnabled)
 
-    def button_workspace_for_row(self, param, param1):
+        self.ui.tableWidget.setItem(row_count, 0, item1)
+        self.ui.tableWidget.setItem(row_count, 1, item2)
+        self.ui.tableWidget.setItem(row_count, 2, item3)
+        self.ui.tableWidget.setCellWidget(row_count, 3, self.button_goto_for_row(sound_id))
+
+        self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
+
+    def button_goto_for_row(self, sound_id):
+        input_btn = QPushButton('跳转')
+        input_btn.clicked.connect(lambda: self.goto_sound(sound_id, input_btn))  # 复杂的参数传递
+        if self.work_space_data.now_sound_index == sound_id:
+            input_btn.setEnabled(False)
+        return input_btn
+
+    def goto_sound(self, sound_id, input_btn):
+        # print(self.ui.tableWidget.cellWidget(sound_id, 3).text())
+        # self.ui.tableWidget.cellWidget(sound_id, 3).setEnabled(True)  # 写代码写出了幻觉
+        self.ui.tableWidget.cellWidget(self.work_space_data.now_sound_index, 3).setEnabled(True)
+        self.work_space_data.now_sound_index = sound_id
+        self.refresh_now_sound()
+        # print("解锁按钮")
+        input_btn.setEnabled(False)
+        self.ui.tableWidget.selectRow(sound_id)  # 如果不加这个会导致点击按钮后选中按钮下一行的第一个单元格，猜测原因是本应选中按钮，但是按钮被置灰光标自动后移
+
+    def refresh_now_sound(self):
+        index = self.work_space_data.now_sound_index
+        now_sound_info = self.work_space_data.sound_list[index]
+        print(f"现在的音频信息为：{now_sound_info.text}")
+
         pass
 
 
@@ -94,7 +130,6 @@ class MainWindow(QMainWindow):
         window2.refresh_data(name)
         window2.show()
 
-
     def refresh_data(self):
         self.table_refresh()
         pass
@@ -118,11 +153,11 @@ class MainWindow(QMainWindow):
 
             window1.ui.tableWidget.setItem(row_count, 0, item1)
             window1.ui.tableWidget.setItem(row_count, 1, item2)
-            window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]),str(row[1])))
+            window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]), str(row[1])))
             window1.ui.tableWidget.setCellWidget(row_count, 3, self.button_output_for_row(str(row[0])))
             window1.ui.tableWidget.setCellWidget(row_count, 4, self.button_delete_for_row(str(row[0])))
 
-            window1.ui.tableWidget.resizeColumnsToContents()
+            window1.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
 
     def button_workspace_for_row(self, name, path):
         input_btn = QPushButton('进入')
@@ -130,7 +165,6 @@ class MainWindow(QMainWindow):
         if not utils.is_sound_file_ok(path):
             input_btn.setEnabled(False)
             input_btn.setText("音频缺失")
-
 
         return input_btn
 
@@ -161,8 +195,9 @@ class MainWindow(QMainWindow):
         # yes_btn.setText("是")
         # no_btn = QMessageBox.No
         # no_btn.setText("否")
-        is_delete = QMessageBox.question(self, "删除数据集", f"确定删除数据集 {name} ？\n删除后你可以在数据库中手动将其找回", QMessageBox.Yes | QMessageBox.No,
-                                QMessageBox.No)
+        is_delete = QMessageBox.question(self, "删除数据集", f"确定删除数据集 {name} ？\n删除后你可以在数据库中手动将其找回",
+                                         QMessageBox.Yes | QMessageBox.No,
+                                         QMessageBox.No)
         if is_delete == QMessageBox.Yes:
             self.delete_table(name)
 
@@ -170,7 +205,6 @@ class MainWindow(QMainWindow):
         db = global_obj.get_value("db")
         db.delete_sound_table(name)
         self.table_refresh()
-
 
 
 class InputDataWindow(QMainWindow):

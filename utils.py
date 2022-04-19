@@ -97,6 +97,7 @@ class WorkSpaceData:
         self.refresh_sound_list()
         self.sound_path = path
         self.sound = AudioSegment.from_file(path)
+        self.now_sound_index = 0
 
     def refresh_sound_list(self):
         db = global_obj.get_value("db")
