@@ -2,3 +2,4 @@
 *.srt
 *.wav
 .idea
+/test

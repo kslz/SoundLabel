@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u5b57\u5e55\u6587\u4ef6\u548c\u97f3\u9891\u6587\u4ef6", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"\u8bf7\u5728\u6b64\u8868\u4e2d\u9009\u62e9\u4f60\u8981\u64cd\u4f5c\u7684\u6570\u636e\u96c6", None))
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"\u65b0\u5efa\u5217", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"\u6570\u636e\u96c6\u540d", None));
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u8def\u5f84", None));
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)

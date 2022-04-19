@@ -1,12 +1,13 @@
 import sys
 
+import pysrt
 from PySide6.QtCore import Qt
 
 import global_obj
 
 import utils
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget, QMessageBox
 
 from ui import ui_main, ui_gui, ui_inputdata
 
@@ -90,7 +91,7 @@ class MainWindow(QMainWindow):
 
     def button_delete_for_row(self, name):
         input_btn = QPushButton('删除')
-        input_btn.clicked.connect(lambda: self.delete_table(name))
+        input_btn.clicked.connect(lambda: self.is_delete_box(name))
         return input_btn
 
     def button_output_for_row(self, name):
@@ -108,6 +109,17 @@ class MainWindow(QMainWindow):
             file_path = db.select_sound_path(table)
             row_info.append([table, file_path])
         return row_info
+
+    def is_delete_box(self, name):
+        # 看来不是这么改的
+        # yes_btn = QMessageBox.Yes
+        # yes_btn.setText("是")
+        # no_btn = QMessageBox.No
+        # no_btn.setText("否")
+        is_delete = QMessageBox.question(self, "删除数据集", f"确定删除数据集 {name} ？\n删除后你可以在数据库中手动将其找回", QMessageBox.Yes | QMessageBox.No,
+                                QMessageBox.No)
+        if is_delete == QMessageBox.Yes:
+            self.delete_table(name)
 
     def delete_table(self, name):
         db = global_obj.get_value("db")
@@ -151,6 +163,12 @@ class InputDataWindow(QMainWindow):
         print(f"导入文件 {name}")
         db = global_obj.get_value("db")
         db.create_sound_table(name)
+        file_path = global_obj.get_value("sound_dict")[name]
+        mysrt = pysrt.open(file_path[0])
+        input_list = []
+        for part in mysrt:
+            input_list.append([part.text, part.start.ordinal, part.end.ordinal])
+        db.insert_sound_line(input_list, file_path[1], name)
         if db.select_tables_list().count(name) != 0:
             input_btn.setEnabled(False)
             input_btn.setText("已导入")

@@ -31,7 +31,6 @@ class LiteDB:
     def delete_sound_table(self, sound_name):
         c = self.conn.cursor()
         now_time = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-        print(f'''ALTER TABLE {sound_name} RENAME TO {'_' + sound_name + '_' + now_time};''')
         c.execute(f'''ALTER TABLE {sound_name} RENAME TO {'_' + sound_name + '_' + now_time};''')
         print(f"数据表 {sound_name} 被改名为 {'_' + sound_name + '_' + now_time}")
         self.conn.commit()
@@ -62,6 +61,15 @@ class LiteDB:
         for row in result:
             return row[0]
 
+    def insert_sound_line(self, input_list, path, name):
+        """ 新增一条语音记录 """
+        c = self.conn.cursor()
+        for row in input_list:
+            c.execute(f"INSERT INTO {name}(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
+        self.conn.commit()
+        print("数据插入成功")
+
+
 
 class MySound:
     def __init__(self, info_dict):
@@ -78,9 +86,16 @@ class AllSound:
     def __init__(self, file_path):
         self.sound = get_sound(file_path)
 
-class MySRT:
-    def __init__(self, file_path):
-        pass
+# class MySRT:
+#     def __init__(self, file_path):
+#         self.srt_path = file_path
+#         self.srt_list = []
+#         srt_text = file_r(file_path)
+#         srt_row = []
+#         for line in srt_text.split("\n"):
+#             print(line)
+#         pass
+
 
 
 def get_sound(file_path):
@@ -132,7 +147,12 @@ def dictdir(path, dict_name, file_end=""):  # 传入存储的dict
                     continue
                 dict_name[file_path.replace("\\", "/").split("/")[-1]] = file_path.replace("\\", "/")
 
+def file_r(path):
+    with open(path, 'r', encoding="UTF-8") as f:
+        return f.read()
+
 
 if __name__ == "__main__":
-    db1 = LiteDB()
-    print(db1.select_tables_list())
+    srt1 = MySRT("filepath/jr1.srt")
+
+
