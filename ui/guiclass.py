@@ -17,6 +17,8 @@ class WorkSpaceWindow(QFrame):
         super(WorkSpaceWindow, self).__init__()
         self.ui = ui_gui.Ui_Mainwindow()
         self.ui.setupUi(self)
+        self.work_space_data = None
+
 
     def click_refreshBTN(self):
         print("刷新声音")
@@ -36,6 +38,13 @@ class WorkSpaceWindow(QFrame):
     def click_table(self, a):
         print(f"表格单元格被双击 {a.text()}")
 
+    def refresh_data(self, name):
+        db = global_obj.get_value("db")
+        path = db.select_sound_path(name)
+        self.work_space_data = utils.WorkSpaceData(name, path)
+        print(self.work_space_data.name)
+        print(self.work_space_data.sound_list)
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -54,6 +63,10 @@ class MainWindow(QMainWindow):
 
     def to_workspace(self, name):
         print(f"前往数据标注窗口 {name}")
+        window1.close()
+        window2.refresh_data(name)
+        window2.show()
+
 
     def refresh_data(self):
         self.table_refresh()
@@ -78,15 +91,20 @@ class MainWindow(QMainWindow):
 
             window1.ui.tableWidget.setItem(row_count, 0, item1)
             window1.ui.tableWidget.setItem(row_count, 1, item2)
-            window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0])))
+            window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]),str(row[1])))
             window1.ui.tableWidget.setCellWidget(row_count, 3, self.button_output_for_row(str(row[0])))
             window1.ui.tableWidget.setCellWidget(row_count, 4, self.button_delete_for_row(str(row[0])))
 
             window1.ui.tableWidget.resizeColumnsToContents()
 
-    def button_workspace_for_row(self, name):
+    def button_workspace_for_row(self, name, path):
         input_btn = QPushButton('进入')
         input_btn.clicked.connect(lambda: self.to_workspace(name))
+        if not utils.is_sound_file_ok(path):
+            input_btn.setEnabled(False)
+            input_btn.setText("音频缺失")
+
+
         return input_btn
 
     def button_delete_for_row(self, name):
@@ -125,6 +143,7 @@ class MainWindow(QMainWindow):
         db = global_obj.get_value("db")
         db.delete_sound_table(name)
         self.table_refresh()
+
 
 
 class InputDataWindow(QMainWindow):

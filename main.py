@@ -26,6 +26,7 @@ def main():
     db = LiteDB()
     global_obj.set_value("sound_dict", sound_dict)
     global_obj.set_value("db", db)
+    global_obj.set_value("sound_type",sound_type)
 
     # sqlite的对象不能在别的线程里用，先不用了
     # gui_thread = Thread(target=guiclass.main)

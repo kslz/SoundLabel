@@ -4,6 +4,8 @@ import sqlite3
 from pydub import AudioSegment
 import time
 
+import global_obj
+
 
 class LiteDB:
     def __init__(self, dbpath='db/data.db'):
@@ -61,30 +63,49 @@ class LiteDB:
         for row in result:
             return row[0]
 
+    def select_dataset_data(self, name):
+        """ 搜索某个数据集里的全部信息,以sound_start递增顺序排序 """
+        c = self.conn.cursor()
+        # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
+        result = c.execute(
+            f"SELECT sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
+        return list(result)
+
     def insert_sound_line(self, input_list, path, name):
         """ 新增一条语音记录 """
         c = self.conn.cursor()
         for row in input_list:
-            c.execute(f"INSERT INTO {name}(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
+            c.execute(
+                f"INSERT INTO {name}(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
         self.conn.commit()
         print("数据插入成功")
 
 
-
 class MySound:
-    def __init__(self, info_dict):
-        self.text = info_dict["text"]
-        self.start = info_dict["start"]
-        self.end = info_dict["end"]
-        self.checked = info_dict["checked"]
-        self.can_use = info_dict["can_use"]
-        self.file_name = info_dict["file_name"]
-        self.sound = cut_sound(info_dict["all_sound"], self.start, self.end)
+    def __init__(self, info_list):
+        self.text = info_list[0]
+        self.start = info_list[1]
+        self.end = info_list[2]
+        self.checked = info_list[3]
+        self.can_use = info_list[4]
 
 
-class AllSound:
-    def __init__(self, file_path):
-        self.sound = get_sound(file_path)
+class WorkSpaceData:
+    def __init__(self, name, path):
+        self.name = name
+        self.sound_list = []
+        self.refresh_sound_list()
+        self.sound_path = path
+        self.sound = AudioSegment.from_file(path)
+
+    def refresh_sound_list(self):
+        db = global_obj.get_value("db")
+        sound_list = []
+        for row in db.select_dataset_data(self.name):
+            sound_list.append(MySound(row))
+        self.sound_list = sound_list
+        print("数据集信息已更新")
+
 
 # class MySRT:
 #     def __init__(self, file_path):
@@ -97,13 +118,12 @@ class AllSound:
 #         pass
 
 
-
-def get_sound(file_path):
-    file_type = file_path.split(".")[-1:][0]
-    if file_type == "mp3":
-        return AudioSegment.from_mp3(file_path)
-    elif file_type == "wav":
-        return AudioSegment.from_wav(file_path)
+# def get_sound(file_path):
+#     file_type = file_path.split(".")[-1:][0]
+#     if file_type == "mp3":
+#         return AudioSegment.from_mp3(file_path)
+#     elif file_type == "wav":
+#         return AudioSegment.from_wav(file_path)
 
 
 def cut_sound(sound, start, end):
@@ -147,12 +167,22 @@ def dictdir(path, dict_name, file_end=""):  # 传入存储的dict
                     continue
                 dict_name[file_path.replace("\\", "/").split("/")[-1]] = file_path.replace("\\", "/")
 
+
 def file_r(path):
     with open(path, 'r', encoding="UTF-8") as f:
         return f.read()
 
 
+def is_sound_file_ok(path):
+    is_ok = False
+    try:
+        AudioSegment.from_file(path)
+    except:
+        print(f"{path} 文件未找到，无法进入数据集")
+    else:
+        is_ok = True
+    return is_ok
+
+
 if __name__ == "__main__":
-    srt1 = MySRT("filepath/jr1.srt")
-
-
+    pass
