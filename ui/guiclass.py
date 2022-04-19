@@ -2,6 +2,7 @@ import sys
 
 import pysrt
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
 
 import global_obj
 
@@ -18,10 +19,15 @@ class WorkSpaceWindow(QFrame):
         self.ui = ui_gui.Ui_Mainwindow()
         self.ui.setupUi(self)
         self.work_space_data = None
+        self.ui.tableWidget.setRowHeight(1,10)
+        font1 = QFont()
+        font1.setPointSize(10)
+        self.ui.tableWidget.setFont(font1)
+
 
 
     def click_refreshBTN(self):
-        print("刷新声音")
+        print("刷新表格")
 
     def click_play_soundBTN(self):
         print("播放声音")
@@ -39,11 +45,32 @@ class WorkSpaceWindow(QFrame):
         print(f"表格单元格被双击 {a.text()}")
 
     def refresh_data(self, name):
+        # 清空表格
+        while self.ui.tableWidget.rowCount() != 0:
+            self.ui.tableWidget.removeRow(0)
         db = global_obj.get_value("db")
         path = db.select_sound_path(name)
         self.work_space_data = utils.WorkSpaceData(name, path)
-        print(self.work_space_data.name)
-        print(self.work_space_data.sound_list)
+        for sound_obj in self.work_space_data.sound_list:
+            self.sound_obj_to_row(sound_obj)
+
+    def sound_obj_to_row(self,sound_obj):
+        sound_obj = utils.MySound()
+        row_count = self.ui.tableWidget.rowCount()
+        self.ui.tableWidget.insertRow(row_count)
+        item1 = QTableWidgetItem()
+        item1.setText(sound_obj.text)
+        item1.setFlags(Qt.ItemIsEnabled)
+
+        item2 = QTableWidgetItem()
+        item2.setText(sound_obj.text)
+        item2.setFlags(Qt.ItemIsEnabled)
+
+        # self.ui.tableWidget.setItem(row_count, 0, item1)
+        # self.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]), str(row[1])))
+
+    def button_workspace_for_row(self, param, param1):
+        pass
 
 
 class MainWindow(QMainWindow):

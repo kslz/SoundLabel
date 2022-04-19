@@ -134,6 +134,11 @@ class Ui_Mainwindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.groupBox_2 = QGroupBox(self.widget_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
+        self.groupBox_2.setSizePolicy(sizePolicy1)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.radioButton = QRadioButton(self.groupBox_2)
@@ -157,9 +162,15 @@ class Ui_Mainwindow(object):
 
         self.groupBox_3 = QGroupBox(self.widget_3)
         self.groupBox_3.setObjectName(u"groupBox_3")
+        self.groupBox_3.setFont(font)
         self.verticalLayout_4 = QVBoxLayout(self.groupBox_3)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.tableWidget = QTableWidget(self.groupBox_3)
+        self.widget_7 = QWidget(self.groupBox_3)
+        self.widget_7.setObjectName(u"widget_7")
+        self.widget_7.setFont(font1)
+        self.horizontalLayout_6 = QHBoxLayout(self.widget_7)
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.tableWidget = QTableWidget(self.widget_7)
         if (self.tableWidget.columnCount() < 4):
             self.tableWidget.setColumnCount(4)
         __qtablewidgetitem = QTableWidgetItem()
@@ -188,7 +199,10 @@ class Ui_Mainwindow(object):
         self.tableWidget.setFocusPolicy(Qt.StrongFocus)
         self.tableWidget.setContextMenuPolicy(Qt.DefaultContextMenu)
 
-        self.verticalLayout_4.addWidget(self.tableWidget)
+        self.horizontalLayout_6.addWidget(self.tableWidget)
+
+
+        self.verticalLayout_4.addWidget(self.widget_7)
 
 
         self.horizontalLayout.addWidget(self.groupBox_3)
@@ -201,11 +215,11 @@ class Ui_Mainwindow(object):
 
         self.widget = QWidget(Mainwindow)
         self.widget.setObjectName(u"widget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy2)
         self.horizontalLayout_2 = QHBoxLayout(self.widget)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -213,11 +227,11 @@ class Ui_Mainwindow(object):
         self.horizontalLayout_2.setContentsMargins(9, -1, -1, 9)
         self.pushButton = QPushButton(self.widget)
         self.pushButton.setObjectName(u"pushButton")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(2)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(2)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy3)
         self.pushButton.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.pushButton)
@@ -232,8 +246,8 @@ class Ui_Mainwindow(object):
 
         self.pushButton_2 = QPushButton(self.widget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy2.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(sizePolicy3)
         self.pushButton_2.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.pushButton_2)
