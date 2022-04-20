@@ -48,6 +48,7 @@ class LiteDB:
         return result
 
     def select_tables_list(self):
+        """ 搜索都有什么表 """
         c = self.conn.cursor()
         result = c.execute("SELECT name FROM sqlite_master WHERE type = 'table'")
         result_list = []
@@ -68,8 +69,15 @@ class LiteDB:
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
         result = c.execute(
-            f"SELECT sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>4 ORDER BY sound_start ASC")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>4 ORDER BY sound_start ASC")
         return list(result)
+
+    def select_dataset_row(self, name, id):
+        """ 搜索数据集里的其中一条数据 """
+        c = self.conn.cursor()
+        result = c.execute(
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE sound_id = {id}")
+        return list(result)[0]
 
     def insert_sound_line(self, input_list, path, name):
         """ 新增一条语音记录 """
@@ -80,14 +88,24 @@ class LiteDB:
         self.conn.commit()
         print("数据插入成功")
 
+    def update_sound(self, sound_obj, name):
+        """ 更新标注信息 """
+        c = self.conn.cursor()
+        print(f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.end}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+
+        c.execute(f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+        self.conn.commit()
+        print(f"数据 {sound_obj.text} 更新成功")
+
 
 class MySound:
     def __init__(self, info_list):
-        self.text = info_list[0]
-        self.start = info_list[1]
-        self.end = info_list[2]
-        self.checked = info_list[3]
-        self.can_use = info_list[4]
+        self.id = info_list[0]
+        self.text = info_list[1]
+        self.start = info_list[2]
+        self.end = info_list[3]
+        self.checked = info_list[4]
+        self.can_use = info_list[5]
 
 
 class WorkSpaceData:

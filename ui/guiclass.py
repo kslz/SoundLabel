@@ -11,7 +11,8 @@ import global_obj
 
 import utils
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget, QMessageBox, \
+    QButtonGroup
 
 from ui import ui_main, ui_gui, ui_inputdata, ui_wait
 
@@ -26,9 +27,20 @@ class WorkSpaceWindow(QFrame):
         font1 = QFont()
         font1.setPointSize(10)
         self.ui.tableWidget.setFont(font1)
+        self.btn_group = QButtonGroup(self.ui.groupBox_2)
+        self.btn_group.addButton(self.ui.radioButton, 0)
+        self.btn_group.addButton(self.ui.radioButton_2, 1)
 
     def click_refreshBTN(self):
         print("刷新表格")
+        self.ui.pushButton_4.setEnabled(False)
+        self.ui.pushButton_4.setText("请稍等")
+        self.ui.pushButton_4.style()
+        self.refresh_data(self.work_space_data.name)
+        self.ui.pushButton_4.setEnabled(True)
+        self.ui.pushButton_4.setText("刷新数据列表")
+        self.ui.pushButton_4.style()
+
 
     def click_play_soundBTN(self):
         print("播放声音")
@@ -54,9 +66,38 @@ class WorkSpaceWindow(QFrame):
 
     def click_checkBTN(self):
         print("确定本条声音")
+        db = global_obj.get_value("db")
+        index = self.work_space_data.now_sound_index
+        now_sound_info = self.work_space_data.sound_list[index]
+        now_sound_info.text = self.ui.lineEdit.text()
+        now_sound_info.start = self.ui.lineEdit_2.text()
+        now_sound_info.end = self.ui.lineEdit_3.text()
+        now_sound_info.checked = 1
+        if self.btn_group.checkedId() == -1:
+            now_sound_info.can_use = 1
+        else:
+            now_sound_info.can_use = self.btn_group.checkedId()
+        db.update_sound(now_sound_info,self.work_space_data.name)
+        self.refresh_table_line(now_sound_info)
 
-    def click_table(self, a):
-        print(f"表格单元格被双击 {a.text()}")
+    def refresh_table_line(self,now_sound_info_old):
+        index = self.work_space_data.now_sound_index
+        now_sound_info = self.work_space_data.sound_list[index]
+        db = global_obj.get_value("db")
+        select_sound_info = db.select_dataset_row(self.work_space_data.name,now_sound_info.id)
+        item_text1 = "已标注"
+        if select_sound_info[4] == 0:
+            item_text1 = "未标注"
+        item_text2 = "可用"
+        if select_sound_info[5] == 0:
+            item_text2 = "不可用"
+        self.ui.tableWidget.item(self.work_space_data.now_sound_index, 0).setText(select_sound_info[1])
+        self.ui.tableWidget.item(self.work_space_data.now_sound_index, 1).setText(item_text1)
+        self.ui.tableWidget.item(self.work_space_data.now_sound_index, 2).setText(item_text2)
+        self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
+
+
+
 
     def refresh_data(self, name):
         # 清空表格
@@ -70,6 +111,7 @@ class WorkSpaceWindow(QFrame):
             self.sound_obj_to_row(sound_obj, i)
             i = i + 1  # 半自动经典for循环 index不好用
         self.refresh_now_sound()
+        self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
 
     def sound_obj_to_row(self, sound_obj, sound_id):
         # sound_obj = utils.MySound()
@@ -97,8 +139,6 @@ class WorkSpaceWindow(QFrame):
         self.ui.tableWidget.setItem(row_count, 1, item2)
         self.ui.tableWidget.setItem(row_count, 2, item3)
         self.ui.tableWidget.setCellWidget(row_count, 3, self.button_goto_for_row(sound_id))
-
-        self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
 
     def button_goto_for_row(self, sound_id):
         input_btn = QPushButton('跳转')

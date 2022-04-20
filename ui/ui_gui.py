@@ -112,6 +112,48 @@ class Ui_Mainwindow(object):
 
         self.verticalLayout_2.addWidget(self.pushButton_5)
 
+        self.widget = QWidget(self.groupBox_6)
+        self.widget.setObjectName(u"widget")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy1)
+        self.horizontalLayout_2 = QHBoxLayout(self.widget)
+        self.horizontalLayout_2.setSpacing(6)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalLayout_2.setContentsMargins(9, -1, -1, 9)
+        self.pushButton = QPushButton(self.widget)
+        self.pushButton.setObjectName(u"pushButton")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(2)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy2)
+        self.pushButton.setFont(font)
+
+        self.horizontalLayout_2.addWidget(self.pushButton)
+
+        self.pushButton_3 = QPushButton(self.widget)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
+        self.pushButton_3.setSizePolicy(sizePolicy)
+        self.pushButton_3.setFont(font)
+
+        self.horizontalLayout_2.addWidget(self.pushButton_3)
+
+        self.pushButton_2 = QPushButton(self.widget)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+        sizePolicy2.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(sizePolicy2)
+        self.pushButton_2.setFont(font)
+
+        self.horizontalLayout_2.addWidget(self.pushButton_2)
+
+
+        self.verticalLayout_2.addWidget(self.widget)
+
 
         self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
 
@@ -134,11 +176,11 @@ class Ui_Mainwindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.groupBox_2 = QGroupBox(self.widget_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
-        self.groupBox_2.setSizePolicy(sizePolicy1)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
+        self.groupBox_2.setSizePolicy(sizePolicy3)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.radioButton = QRadioButton(self.groupBox_2)
@@ -159,11 +201,8 @@ class Ui_Mainwindow(object):
 
         self.label_5 = QLabel(self.groupBox_2)
         self.label_5.setObjectName(u"label_5")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
-        self.label_5.setSizePolicy(sizePolicy2)
+        sizePolicy1.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy1)
         font2 = QFont()
         font2.setPointSize(12)
         self.label_5.setFont(font2)
@@ -238,45 +277,6 @@ class Ui_Mainwindow(object):
 
         self.verticalLayout.addWidget(self.groupBox)
 
-        self.widget = QWidget(Mainwindow)
-        self.widget.setObjectName(u"widget")
-        sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy2)
-        self.horizontalLayout_2 = QHBoxLayout(self.widget)
-        self.horizontalLayout_2.setSpacing(6)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setSizeConstraint(QLayout.SetDefaultConstraint)
-        self.horizontalLayout_2.setContentsMargins(9, -1, -1, 9)
-        self.pushButton = QPushButton(self.widget)
-        self.pushButton.setObjectName(u"pushButton")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy3.setHorizontalStretch(2)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy3)
-        self.pushButton.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.pushButton)
-
-        self.pushButton_3 = QPushButton(self.widget)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
-        self.pushButton_3.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.pushButton_3)
-
-        self.pushButton_2 = QPushButton(self.widget)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy3.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy3)
-        self.pushButton_2.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
-
-
-        self.verticalLayout.addWidget(self.widget)
-
 
         self.retranslateUi(Mainwindow)
         self.pushButton_4.clicked.connect(Mainwindow.click_refreshBTN)
@@ -300,6 +300,9 @@ class Ui_Mainwindow(object):
 "\u4fdd\u5b58\u4fee\u6539", None))
         self.pushButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u5237\u65b0\u6570\u636e\u5217\u8868", None))
         self.pushButton_5.setText(QCoreApplication.translate("Mainwindow", u"\u64ad\u653e\u97f3\u9891", None))
+        self.pushButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0a\u4e00\u6761", None))
+        self.pushButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u4e0b\u4e00\u6761", None))
         self.groupBox.setTitle(QCoreApplication.translate("Mainwindow", u"\u6807\u6ce8\u4fe1\u606f", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("Mainwindow", u"\u662f\u5426\u53ef\u7528", None))
         self.radioButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0d\u53ef\u7528", None))
@@ -333,8 +336,5 @@ class Ui_Mainwindow(object):
         ___qtablewidgetitem8.setText(QCoreApplication.translate("Mainwindow", u"4", None));
         self.tableWidget.setSortingEnabled(__sortingEnabled)
 
-        self.pushButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0a\u4e00\u6761", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u4e0b\u4e00\u6761", None))
     # retranslateUi
 
