@@ -1,4 +1,5 @@
 import sys
+from time import sleep
 
 import pysrt
 from PySide6.QtCore import Qt
@@ -10,7 +11,7 @@ import utils
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QTableWidgetItem, QWidget, QMessageBox
 
-from ui import ui_main, ui_gui, ui_inputdata
+from ui import ui_main, ui_gui, ui_inputdata, ui_wait
 
 
 class WorkSpaceWindow(QFrame):
@@ -64,15 +65,14 @@ class WorkSpaceWindow(QFrame):
 
         item2 = QTableWidgetItem()
         item_text1 = "已标注"
-        print(type(sound_obj.checked))
-        if sound_obj.checked == "0":
-            btn_text1 = "未标注"
+        if str(sound_obj.checked) == "0":
+            item_text1 = "未标注"
         item2.setText(item_text1)
         item2.setFlags(Qt.ItemIsEnabled)
 
         item3 = QTableWidgetItem()
         item_text2 = "可用"
-        if sound_obj.checked == "0":
+        if sound_obj.can_use == "0":
             item_text2 = "不可用"
         item3.setText(item_text2)
         item3.setFlags(Qt.ItemIsEnabled)
@@ -127,7 +127,10 @@ class MainWindow(QMainWindow):
     def to_workspace(self, name):
         print(f"前往数据标注窗口 {name}")
         window1.close()
+        # window4.ui.label_2.setText("加载中，请稍等...")  # 很奇怪 这个窗口里的东西都加载不出来
+        window4.show()
         window2.refresh_data(name)
+        window4.close()
         window2.show()
 
     def refresh_data(self):
@@ -273,6 +276,13 @@ class InputDataWindow(QMainWindow):
         return input_btn
 
 
+class WaitWindow(QFrame):  # 注意这里要写QFrame 具体请看QT设计师里的父窗口类名
+    def __init__(self):
+        super(WaitWindow, self).__init__()
+        self.ui = ui_wait.Ui_widget()
+        self.ui.setupUi(self)
+
+
 def main():
     app = QApplication([])
 
@@ -280,11 +290,14 @@ def main():
     global window1
     global window2
     global window3
+    global window4
     window1 = MainWindow()
     window1.refresh_data()
     window2 = WorkSpaceWindow()
     window3 = InputDataWindow()
+    window4 = WaitWindow()
     window1.show()
+    # window4.show()
 
     app.exec()
     # sys.exit(app.exec())

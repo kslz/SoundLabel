@@ -64,11 +64,11 @@ class LiteDB:
             return row[0]
 
     def select_dataset_data(self, name):
-        """ 搜索某个数据集里的全部信息,以sound_start递增顺序排序 """
+        """ 搜索某个数据集里的全部信息 """
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
         result = c.execute(
-            f"SELECT sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
+            f"SELECT sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>4 ORDER BY sound_start ASC")
         return list(result)
 
     def insert_sound_line(self, input_list, path, name):
