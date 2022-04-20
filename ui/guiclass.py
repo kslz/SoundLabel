@@ -1,9 +1,11 @@
 import sys
+from threading import Thread
 from time import sleep
 
 import pysrt
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
+from pydub.playback import play
 
 import global_obj
 
@@ -31,6 +33,19 @@ class WorkSpaceWindow(QFrame):
     def click_play_soundBTN(self):
         print("播放声音")
 
+        play_thread = Thread(target=self.play_sound)
+        play_thread.start()
+        # play_thread.join()  # 多线程 永远的神 不加界面就阻塞了
+
+    def play_sound(self):
+        try:
+            start = int(self.ui.lineEdit_2.text())
+            end = int(self.ui.lineEdit_3.text())
+        except:
+            print("请输入以毫秒为单位的纯数字")
+        else:
+            play(self.work_space_data.sound[start:end])
+
     def click_backBTN(self):
         print("返回上一个声音")
 
@@ -54,6 +69,7 @@ class WorkSpaceWindow(QFrame):
         for sound_obj in self.work_space_data.sound_list:
             self.sound_obj_to_row(sound_obj, i)
             i = i + 1  # 半自动经典for循环 index不好用
+        self.refresh_now_sound()
 
     def sound_obj_to_row(self, sound_obj, sound_id):
         # sound_obj = utils.MySound()
@@ -65,14 +81,14 @@ class WorkSpaceWindow(QFrame):
 
         item2 = QTableWidgetItem()
         item_text1 = "已标注"
-        if str(sound_obj.checked) == "0":
+        if sound_obj.checked == 0:
             item_text1 = "未标注"
         item2.setText(item_text1)
         item2.setFlags(Qt.ItemIsEnabled)
 
         item3 = QTableWidgetItem()
         item_text2 = "可用"
-        if sound_obj.can_use == "0":
+        if sound_obj.can_use == 0:
             item_text2 = "不可用"
         item3.setText(item_text2)
         item3.setFlags(Qt.ItemIsEnabled)
@@ -102,10 +118,25 @@ class WorkSpaceWindow(QFrame):
         self.ui.tableWidget.selectRow(sound_id)  # 如果不加这个会导致点击按钮后选中按钮下一行的第一个单元格，猜测原因是本应选中按钮，但是按钮被置灰光标自动后移
 
     def refresh_now_sound(self):
+        """ 更新当前页面的音频信息 """
         index = self.work_space_data.now_sound_index
         now_sound_info = self.work_space_data.sound_list[index]
         print(f"现在的音频信息为：{now_sound_info.text}")
+        self.ui.lineEdit_2.setText(str(now_sound_info.start))
+        self.ui.lineEdit_3.setText(str(now_sound_info.end))
+        self.ui.lineEdit.setText(now_sound_info.text)
+        self.ui.label_5.setText(f"当前编号：{index+1}")
+        if now_sound_info.can_use == 0:
+            self.ui.radioButton.setChecked(True)
+        elif now_sound_info.can_use == 1:
+            self.ui.radioButton_2.setChecked(True)
 
+        pass
+
+    def click_output_now(self, path):
+        pass
+
+    def click_back_to_main(self):
         pass
 
 

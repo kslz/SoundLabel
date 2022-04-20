@@ -157,6 +157,31 @@ class Ui_Mainwindow(object):
 
         self.verticalLayout_3.addWidget(self.label)
 
+        self.label_5 = QLabel(self.groupBox_2)
+        self.label_5.setObjectName(u"label_5")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy2)
+        font2 = QFont()
+        font2.setPointSize(12)
+        self.label_5.setFont(font2)
+
+        self.verticalLayout_3.addWidget(self.label_5)
+
+        self.pushButton_6 = QPushButton(self.groupBox_2)
+        self.pushButton_6.setObjectName(u"pushButton_6")
+        self.pushButton_6.setFont(font2)
+
+        self.verticalLayout_3.addWidget(self.pushButton_6)
+
+        self.pushButton_7 = QPushButton(self.groupBox_2)
+        self.pushButton_7.setObjectName(u"pushButton_7")
+        self.pushButton_7.setFont(font2)
+
+        self.verticalLayout_3.addWidget(self.pushButton_7)
+
 
         self.horizontalLayout.addWidget(self.groupBox_2)
 
@@ -215,9 +240,6 @@ class Ui_Mainwindow(object):
 
         self.widget = QWidget(Mainwindow)
         self.widget.setObjectName(u"widget")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
         self.widget.setSizePolicy(sizePolicy2)
         self.horizontalLayout_2 = QHBoxLayout(self.widget)
@@ -262,6 +284,8 @@ class Ui_Mainwindow(object):
         self.pushButton.clicked.connect(Mainwindow.click_backBTN)
         self.pushButton_2.clicked.connect(Mainwindow.click_nextBTN)
         self.pushButton_3.clicked.connect(Mainwindow.click_checkBTN)
+        self.pushButton_6.clicked.connect(Mainwindow.click_output_now)
+        self.pushButton_7.clicked.connect(Mainwindow.click_back_to_main)
 
         QMetaObject.connectSlotsByName(Mainwindow)
     # setupUi
@@ -282,6 +306,9 @@ class Ui_Mainwindow(object):
         self.radioButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u53ef\u7528", None))
         self.label.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u8fd9\u6761\u6548\u679c\n"
 "\u592a\u5dee\u4e86\u8bf7\u9009\u62e9\u4e0d\u53ef\u7528", None))
+        self.label_5.setText(QCoreApplication.translate("Mainwindow", u"\u5f53\u524d\u7f16\u53f7\uff1a1024", None))
+        self.pushButton_6.setText(QCoreApplication.translate("Mainwindow", u"\u5bfc\u51fa\u5f53\u524d\u97f3\u9891", None))
+        self.pushButton_7.setText(QCoreApplication.translate("Mainwindow", u"\u8fd4\u56de\u9996\u9875", None))
         self.groupBox_3.setTitle(QCoreApplication.translate("Mainwindow", u"\u6570\u636e\u5217\u8868", None))
         ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("Mainwindow", u"\u6587\u672c", None));

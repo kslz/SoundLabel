@@ -23,7 +23,7 @@ class LiteDB:
             "sound_text" TEXT NOT NULL,
             "sound_start" integer NOT NULL,
             "sound_end" integer NOT NULL,
-            "checked" TEXT NOT NULL DEFAULT 0,
+            "checked" integer NOT NULL DEFAULT 0,
             "can_use" integer NOT NULL DEFAULT 1,
             "sound_file_path" TEXT NOT NULL,
             PRIMARY KEY ("sound_id"));''')

@@ -201,6 +201,48 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>当前编号：1024</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_6">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>导出当前音频</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_7">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>返回首页</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -460,6 +502,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>Mainwindow</receiver>
+   <slot>click_output_now()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>645</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>661</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>Mainwindow</receiver>
+   <slot>click_back_to_main()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>692</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>720</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>click_refreshBTN()</slot>
@@ -468,5 +542,7 @@
   <slot>click_nextBTN()</slot>
   <slot>click_checkBTN()</slot>
   <slot>click_table()</slot>
+  <slot>click_output_now()</slot>
+  <slot>click_back_to_main()</slot>
  </slots>
 </ui>
