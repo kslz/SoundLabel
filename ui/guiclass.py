@@ -87,7 +87,8 @@ class WorkSpaceWindow(QFrame):
         db.update_sound(now_sound_info, self.work_space_data.name)
         self.refresh_table_line()
         if self.ui.checkBox_2.isChecked():
-            self.click_nextBTN()
+            if self.ui.tableWidget.rowCount() - 1 != self.work_space_data.now_sound_index:
+                self.click_nextBTN()
 
     def refresh_table_line(self):
         """ 刷新表格中的一条数据的信息，从数据库中取值，但不改变表格中的跳转按钮状态 """
@@ -383,6 +384,8 @@ class InputDataWindow(QMainWindow):
         for key in sound_dict.keys():
             # print(key)
             if sound_dict[key][0] == "" or sound_dict[key][1] == "":
+                continue
+            if sound_dict[key][1].count("/output/") != 0:
                 continue
             row_count = window3.ui.dataTableWidget.rowCount()
             window3.ui.dataTableWidget.insertRow(row_count)

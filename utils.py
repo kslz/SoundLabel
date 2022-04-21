@@ -101,9 +101,6 @@ class LiteDB:
     def update_sound(self, sound_obj, name):
         """ 更新标注信息 """
         c = self.conn.cursor()
-        print(
-            f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.end}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
-
         c.execute(
             f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
         self.conn.commit()
