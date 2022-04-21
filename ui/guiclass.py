@@ -259,7 +259,7 @@ class MainWindow(QMainWindow):
         utils.check_mkdir(path + "data/trans/")
         db = global_obj.get_value("db")
         result_dict = db.select_output_data(name)
-        print(result_dict)
+        # print(result_dict)
         try:
             all_sound = AudioSegment.from_file(result_dict["path"]).set_frame_rate(16000).set_channels(1)
         except:
@@ -269,14 +269,15 @@ class MainWindow(QMainWindow):
         write_str = ""
         for row in result_dict["data_list"]:
             i = i + 1
-            all_sound[row[1]:row[2]].export(path + "data/wav/" + f"{name}_" + str(i) + ".wav", format="wav", bitrate="16k",
+            all_sound[row[1]:row[2]].export(path + "data/wav/" + f"{name}_" + str(i) + ".wav", format="wav",
+                                            bitrate="16k",
                                             codec='pcm_s16le')
-            write_str = write_str + row[0] + "\n"
+            write_str = write_str + f"{name}_" + str(i) + ".wav" + "\t" + row[0] + "\n"
 
         with open(path + "data/trans/sample.txt", "a", encoding="UTF-8") as f:
             f.write(write_str)
         is_delete = QMessageBox.information(self, "导出完成", f"导出数据集{name}成功\n请前往 {path} 查看",
-                                         QMessageBox.Yes,QMessageBox.Yes)
+                                            QMessageBox.Yes, QMessageBox.Yes)
         print(f"导出数据集{name}成功")
 
     def to_workspace(self, name):
