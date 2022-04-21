@@ -9,7 +9,7 @@ import global_obj
 
 class LiteDB:
     def __init__(self, dbpath='db/data.db'):
-        check_mkdir("db")
+        check_mkdir("/".join(dbpath.replace("\\", "/").split("/")[:-1]))
         self.conn = sqlite3.connect(dbpath)
         print("数据库打开成功")
 
