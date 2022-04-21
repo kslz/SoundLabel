@@ -34,10 +34,11 @@
 
 ### 主界面：
 
-![主界面](.\img\main1.png)
+![主界面](https://github.com/kslz/SoundLabel/blob/master/img/main1.png?raw=true)
 
 - 点击上方的【导入字幕文件和音频文件】按钮可以进入导入界面
 - 表格中展示了已有的数据集，点击【进入】按钮可以跳转到对应数据集的编辑页，点击【导出数据集】按钮可以将已标注且标注为可用的数据导出，导出路径为： `filepath/output/数据集名_日期时间/`
+![主界面](https://github.com/kslz/SoundLabel/blob/master/img/main2.png?raw=true)
 - 点击删除按钮可以删除对应数据集（没有真的删除，可以从sqlite中找回）
 - 被导入的数据会记录音频文件的位置，请不要移动或删除。当对应的音频文件找不到时数据集会不可用
 
@@ -45,14 +46,14 @@
 
 ### 导入界面
 
-![导入界面](.\img\input1.png)
+![导入界面](https://github.com/kslz/SoundLabel/blob/master/img/input1.png?raw=true)
 
 - 导入界面中展示了目前可导入和已有的数据集，程序会遍历`filepath`目录下的srt文件，然后寻找对应的音频文件，如果可以找到则会在表格中将其展示。点击导入按钮可以导入新的数据集。
 - 数据集成功导入后srt文件就不再使用了，可以删除或移动，只保留音频文件即可。
 
 ### 标注界面
 
-![标注界面](.\img\workspace1.png)
+![标注界面](https://github.com/kslz/SoundLabel/blob/master/img/workspace1.png?raw=true)
 
 标注界面比较复杂，注意：出于节约时间考虑在取数据时过滤掉了4个字和以下长度的音频
 
@@ -76,7 +77,7 @@ sqlite位置：db/data.db
 
 删除数据集后找回：如图所示，将表重命名回原来的名字即可
 
-![删除找回界面](.\img\delete_dataset.png)
+![删除找回界面](https://github.com/kslz/SoundLabel/blob/master/img/delete_dataset.png?raw=true)
 
 
 
