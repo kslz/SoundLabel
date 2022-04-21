@@ -22,7 +22,7 @@ def main():
     dictdir(file_dict_path, file_dict, "")
     global sound_dict
     sound_dict = get_sound_dict(srt_file_dict, file_dict, sound_type)
-    print(sound_dict)
+    # print(sound_dict)
     db = LiteDB()
     global_obj.set_value("sound_dict", sound_dict)
     global_obj.set_value("db", db)

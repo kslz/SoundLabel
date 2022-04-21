@@ -6,6 +6,7 @@ from time import sleep
 import pysrt
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
+from pydub import AudioSegment
 from pydub.playback import play
 
 import global_obj
@@ -211,10 +212,13 @@ class WorkSpaceWindow(QFrame):
         except:
             print("请输入以毫秒为单位的纯数字")
         else:
-            self.work_space_data.sound[start:end].export(
+            out_sound = self.work_space_data.sound[start:end]
+            out_sound = out_sound.set_frame_rate(16000).set_channels(1)  # 设置为16k采样率，单声道
+            out_sound.export(
                 path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + ".wav",
-                format="wav")
-        print("导出当前文件为:" + path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + ".wav")
+                format="wav", bitrate="16k", codec='pcm_s16le')
+        print("导出当前文件为:" + path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S",
+                                                                                  time.localtime()) + ".wav")
 
     def click_back_to_main(self):
         """ 返回首页窗口 """
@@ -239,7 +243,40 @@ class MainWindow(QMainWindow):
         window3.show()
 
     def to_outputfile(self, name):
+        """
+        根据数据集名导出数据集，导出的路径为filepath/output/数据集名_日期时间/
+        音频路径为data/wav/数据集名_编号.wav
+        文本路径为data/trans/sample.txt
+        """
         print(f"导出数据集{name}")
+        path = "filepath/output"
+        path = path.replace("\\", "/")
+        if not path.endswith("/"):
+            path = path + "/"
+        path = path + name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + "/"
+        utils.check_mkdir(path + "data/wav/")
+        utils.check_mkdir(path + "data/trans/")
+        db = global_obj.get_value("db")
+        result_dict = db.select_output_data(name)
+        print(result_dict)
+        try:
+            all_sound = AudioSegment.from_file(result_dict["path"]).set_frame_rate(16000).set_channels(1)
+        except:
+            print(f"{result_dict['path']} 文件未找到，无法导出数据集")
+
+        i = 0
+        write_str = ""
+        for row in result_dict["data_list"]:
+            i = i + 1
+            all_sound[row[1]:row[2]].export(path + "data/wav/" + f"{name}_" + str(i) + ".wav", format="wav", bitrate="16k",
+                                            codec='pcm_s16le')
+            write_str = write_str + row[0] + "\n"
+
+        with open(path + "data/trans/sample.txt", "a", encoding="UTF-8") as f:
+            f.write(write_str)
+        is_delete = QMessageBox.information(self, "导出完成", f"导出数据集{name}成功\n请前往 {path} 查看",
+                                         QMessageBox.Yes,QMessageBox.Yes)
+        print(f"导出数据集{name}成功")
 
     def to_workspace(self, name):
         print(f"前往数据标注窗口 {name}")
@@ -273,7 +310,7 @@ class MainWindow(QMainWindow):
             window1.ui.tableWidget.setItem(row_count, 0, item1)
             window1.ui.tableWidget.setItem(row_count, 1, item2)
             window1.ui.tableWidget.setCellWidget(row_count, 2, self.button_workspace_for_row(str(row[0]), str(row[1])))
-            window1.ui.tableWidget.setCellWidget(row_count, 3, self.button_output_for_row(str(row[0])))
+            window1.ui.tableWidget.setCellWidget(row_count, 3, self.button_output_for_row(str(row[0]), str(row[1])))
             window1.ui.tableWidget.setCellWidget(row_count, 4, self.button_delete_for_row(str(row[0])))
 
             window1.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
@@ -292,9 +329,12 @@ class MainWindow(QMainWindow):
         input_btn.clicked.connect(lambda: self.is_delete_box(name))
         return input_btn
 
-    def button_output_for_row(self, name):
+    def button_output_for_row(self, name, path):
         input_btn = QPushButton('导出数据集')
         input_btn.clicked.connect(lambda: self.to_outputfile(name))
+        if not utils.is_sound_file_ok(path):
+            input_btn.setEnabled(False)
+            input_btn.setText("音频缺失")
         return input_btn
 
     def get_row_info(self):

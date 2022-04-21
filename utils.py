@@ -64,20 +64,30 @@ class LiteDB:
         for row in result:
             return row[0]
 
-    def select_dataset_data(self, name):
+    def select_dataset_data(self, name, num=4):
         """ 搜索某个数据集里的全部信息 """
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
         result = c.execute(
-            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>4 ORDER BY sound_start ASC")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
         return list(result)
 
-    def select_dataset_row(self, name, id):
+    def select_dataset_row(self, name, id, num=4):
         """ 搜索数据集里的其中一条数据 """
         c = self.conn.cursor()
         result = c.execute(
             f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE sound_id = {id}")
         return list(result)[0]
+
+    def select_output_data(self, name, num=4):
+        """ 搜索指定数据集要导出的数据 """
+        result_dict = {}
+        c = self.conn.cursor()
+        result = c.execute(
+            f"SELECT sound_text,sound_start,sound_end FROM {name} WHERE LENGTH(sound_text)>{num} AND checked=1 AND can_use=1 ORDER BY sound_start ASC")
+        result_dict["data_list"] = list(result)
+        result_dict["path"] = list(c.execute(f"SELECT sound_file_path FROM {name} limit 1"))[0][0]  # 顺序很重要
+        return result_dict
 
     def insert_sound_line(self, input_list, path, name):
         """ 新增一条语音记录 """
@@ -173,9 +183,9 @@ def listdir(path, list_name, file_end=""):  # 传入存储的list
 def dictdir(path, dict_name, file_end=""):  # 传入存储的dict
     """
     将目录下的文件名读存储在list中
-    :param file_end:
     :param path:
     :param dict_name:
+    :param file_end:
     :return:
     """
     for file in os.listdir(path):
