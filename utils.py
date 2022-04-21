@@ -91,9 +91,11 @@ class LiteDB:
     def update_sound(self, sound_obj, name):
         """ 更新标注信息 """
         c = self.conn.cursor()
-        print(f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.end}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+        print(
+            f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.end}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
 
-        c.execute(f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+        c.execute(
+            f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
         self.conn.commit()
         print(f"数据 {sound_obj.text} 更新成功")
 
@@ -201,6 +203,12 @@ def is_sound_file_ok(path):
     else:
         is_ok = True
     return is_ok
+
+
+def check_mkdir(path):
+    """ 检查一个目录是否存在，不存在则新建 """
+    if not os.path.exists(path):
+        os.makedirs(path)
 
 
 if __name__ == "__main__":

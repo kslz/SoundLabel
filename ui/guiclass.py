@@ -1,4 +1,5 @@
 import sys
+import time
 from threading import Thread
 from time import sleep
 
@@ -32,6 +33,7 @@ class WorkSpaceWindow(QFrame):
         self.btn_group.addButton(self.ui.radioButton_2, 1)
 
     def click_refreshBTN(self):
+        """ 点击刷新数据列表按钮后触发的槽函数 """
         print("刷新表格")
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_4.setText("请稍等")
@@ -41,8 +43,8 @@ class WorkSpaceWindow(QFrame):
         self.ui.pushButton_4.setText("刷新数据列表")
         self.ui.pushButton_4.style()
 
-
     def click_play_soundBTN(self):
+        """ 点击播放音频后触发的槽函数 """
         print("播放声音")
 
         play_thread = Thread(target=self.play_sound)
@@ -50,6 +52,7 @@ class WorkSpaceWindow(QFrame):
         # play_thread.join()  # 多线程 永远的神 不加界面就阻塞了
 
     def play_sound(self):
+        """" 播放音频 同时检查是不是正常的数字 """
         try:
             start = int(self.ui.lineEdit_2.text())
             end = int(self.ui.lineEdit_3.text())
@@ -59,12 +62,15 @@ class WorkSpaceWindow(QFrame):
             play(self.work_space_data.sound[start:end])
 
     def click_backBTN(self):
-        print("返回上一个声音")
+        print(f"返回上一个声音 序号{self.work_space_data.now_sound_index - 1}")
+        self.goto_sound(self.work_space_data.now_sound_index - 1)  # 进行一个代码的复用
 
     def click_nextBTN(self):
-        print("继续下一个声音")
+        print(f"继续下一个声音 序号{self.work_space_data.now_sound_index + 1}")
+        self.goto_sound(self.work_space_data.now_sound_index + 1)  # 进行一个代码的复用
 
     def click_checkBTN(self):
+        """ 将本条信息标注，修改数据库的内容且将状态切换为已标注 """
         print("确定本条声音")
         db = global_obj.get_value("db")
         index = self.work_space_data.now_sound_index
@@ -77,14 +83,18 @@ class WorkSpaceWindow(QFrame):
             now_sound_info.can_use = 1
         else:
             now_sound_info.can_use = self.btn_group.checkedId()
-        db.update_sound(now_sound_info,self.work_space_data.name)
-        self.refresh_table_line(now_sound_info)
+        db.update_sound(now_sound_info, self.work_space_data.name)
+        self.refresh_table_line()
+        if self.ui.checkBox_2.isChecked():
+            self.click_nextBTN()
 
-    def refresh_table_line(self,now_sound_info_old):
+    def refresh_table_line(self):
+        """ 刷新表格中的一条数据的信息，从数据库中取值，但不改变表格中的跳转按钮状态 """
+        # 试图用子线程给界面加元素，但是加的所有widget及其子类都被添加到新窗口里了，加不到老窗口里，故作罢
         index = self.work_space_data.now_sound_index
         now_sound_info = self.work_space_data.sound_list[index]
         db = global_obj.get_value("db")
-        select_sound_info = db.select_dataset_row(self.work_space_data.name,now_sound_info.id)
+        select_sound_info = db.select_dataset_row(self.work_space_data.name, now_sound_info.id)
         item_text1 = "已标注"
         if select_sound_info[4] == 0:
             item_text1 = "未标注"
@@ -96,10 +106,8 @@ class WorkSpaceWindow(QFrame):
         self.ui.tableWidget.item(self.work_space_data.now_sound_index, 2).setText(item_text2)
         self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
 
-
-
-
     def refresh_data(self, name):
+        """ 刷新表格信息 """
         # 清空表格
         while self.ui.tableWidget.rowCount() != 0:
             self.ui.tableWidget.removeRow(0)
@@ -114,6 +122,7 @@ class WorkSpaceWindow(QFrame):
         self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
 
     def sound_obj_to_row(self, sound_obj, sound_id):
+        """ 传入一个sound_obj，给表格中加一行 """
         # sound_obj = utils.MySound()
         row_count = self.ui.tableWidget.rowCount()
         self.ui.tableWidget.insertRow(row_count)
@@ -141,43 +150,80 @@ class WorkSpaceWindow(QFrame):
         self.ui.tableWidget.setCellWidget(row_count, 3, self.button_goto_for_row(sound_id))
 
     def button_goto_for_row(self, sound_id):
+        """ 返回一个用于跳转到对应音频信息的btn """
         input_btn = QPushButton('跳转')
-        input_btn.clicked.connect(lambda: self.goto_sound(sound_id, input_btn))  # 复杂的参数传递
+        input_btn.clicked.connect(lambda: self.goto_sound(sound_id))  # 不那么复杂的参数传递
         if self.work_space_data.now_sound_index == sound_id:
             input_btn.setEnabled(False)
         return input_btn
 
-    def goto_sound(self, sound_id, input_btn):
-        # print(self.ui.tableWidget.cellWidget(sound_id, 3).text())
-        # self.ui.tableWidget.cellWidget(sound_id, 3).setEnabled(True)  # 写代码写出了幻觉
-        self.ui.tableWidget.cellWidget(self.work_space_data.now_sound_index, 3).setEnabled(True)
+    def goto_sound(self, sound_id):
+        """ 表格中的跳转按钮点击后对应的槽函数 """
+        old_id = self.work_space_data.now_sound_index
         self.work_space_data.now_sound_index = sound_id
         self.refresh_now_sound()
-        # print("解锁按钮")
-        input_btn.setEnabled(False)
+        self.refresh_table_gotoBTN(old_id, sound_id)
         self.ui.tableWidget.selectRow(sound_id)  # 如果不加这个会导致点击按钮后选中按钮下一行的第一个单元格，猜测原因是本应选中按钮，但是按钮被置灰光标自动后移
+        if self.ui.checkBox.isChecked():
+            self.click_play_soundBTN()  # 灵活运用槽
+
+    def refresh_table_gotoBTN(self, old_id, new_id):
+        """ 用于刷新表格中的跳转按钮状态"""
+        self.ui.tableWidget.cellWidget(old_id, 3).setEnabled(True)
+        self.ui.tableWidget.cellWidget(new_id, 3).setEnabled(False)
 
     def refresh_now_sound(self):
-        """ 更新当前页面的音频信息 """
+        """ 更新当前页面中的音频信息，不改变表格中的按钮状态 """
         index = self.work_space_data.now_sound_index
         now_sound_info = self.work_space_data.sound_list[index]
         print(f"现在的音频信息为：{now_sound_info.text}")
         self.ui.lineEdit_2.setText(str(now_sound_info.start))
         self.ui.lineEdit_3.setText(str(now_sound_info.end))
         self.ui.lineEdit.setText(now_sound_info.text)
-        self.ui.label_5.setText(f"当前编号：{index+1}")
+        self.ui.label_5.setText(f"当前编号：{index + 1}")
         if now_sound_info.can_use == 0:
             self.ui.radioButton.setChecked(True)
         elif now_sound_info.can_use == 1:
             self.ui.radioButton_2.setChecked(True)
 
-        pass
+        # 刷新上一条下一条按钮状态
+        if self.ui.tableWidget.rowCount() - 1 == self.work_space_data.now_sound_index:
+            self.ui.pushButton_2.setEnabled(False)
+        else:
+            self.ui.pushButton_2.setEnabled(True)
 
-    def click_output_now(self, path):
-        pass
+        if self.work_space_data.now_sound_index == 0:
+            self.ui.pushButton.setEnabled(False)
+        else:
+            self.ui.pushButton.setEnabled(True)
+
+    def click_output_now(self):
+        """ 导出当前的音频文件，如果不指定则导出到filepath/output下,命名为数据集名+日期 """
+        # 不知为何 槽函数接收到信号的时候顺便还接收到了一个参数 值为false 但是我不知道这个false是哪来的
+        path = "filepath/output"
+        path = path.replace("\\", "/")
+        if not path.endswith("/"):
+            path = path + "/"
+        utils.check_mkdir(path)
+        try:
+            start = int(self.ui.lineEdit_2.text())
+            end = int(self.ui.lineEdit_3.text())
+        except:
+            print("请输入以毫秒为单位的纯数字")
+        else:
+            self.work_space_data.sound[start:end].export(
+                path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + ".wav",
+                format="wav")
+        print("导出当前文件为:" + path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + ".wav")
 
     def click_back_to_main(self):
-        pass
+        """ 返回首页窗口 """
+        window2.close()
+        window1.show()
+        # 清空表格，节约内存 节省了10m不到的内存 没意义
+        # window2.work_space_data = None
+        # while window2.ui.tableWidget.rowCount() != 0:
+        #     window2.ui.tableWidget.removeRow(0)
 
 
 class MainWindow(QMainWindow):
@@ -206,7 +252,6 @@ class MainWindow(QMainWindow):
 
     def refresh_data(self):
         self.table_refresh()
-        pass
 
     def table_refresh(self):
         # 清空表格

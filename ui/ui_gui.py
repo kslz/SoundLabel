@@ -15,16 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QGroupBox, QHBoxLayout,
-    QHeaderView, QLabel, QLayout, QLineEdit,
-    QPushButton, QRadioButton, QSizePolicy, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QGroupBox,
+    QHBoxLayout, QHeaderView, QLabel, QLayout,
+    QLineEdit, QPushButton, QRadioButton, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
 class Ui_Mainwindow(object):
     def setupUi(self, Mainwindow):
         if not Mainwindow.objectName():
             Mainwindow.setObjectName(u"Mainwindow")
         Mainwindow.resize(738, 799)
+        Mainwindow.setMinimumSize(QSize(0, 0))
         self.verticalLayout = QVBoxLayout(Mainwindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setSizeConstraint(QLayout.SetMinAndMaxSize)
@@ -95,6 +96,37 @@ class Ui_Mainwindow(object):
 
         self.horizontalLayout_5.addWidget(self.pushButton_4)
 
+        self.widget_8 = QWidget(self.widget_6)
+        self.widget_8.setObjectName(u"widget_8")
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_8.sizePolicy().hasHeightForWidth())
+        self.widget_8.setSizePolicy(sizePolicy)
+        self.widget_8.setMinimumSize(QSize(0, 0))
+        self.widget_8.setFont(font1)
+        self.widget_8.setLayoutDirection(Qt.LeftToRight)
+        self.verticalLayout_6 = QVBoxLayout(self.widget_8)
+        self.verticalLayout_6.setSpacing(0)
+        self.verticalLayout_6.setObjectName(u"verticalLayout_6")
+        self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.checkBox = QCheckBox(self.widget_8)
+        self.checkBox.setObjectName(u"checkBox")
+        font2 = QFont()
+        font2.setPointSize(12)
+        self.checkBox.setFont(font2)
+
+        self.verticalLayout_6.addWidget(self.checkBox)
+
+        self.checkBox_2 = QCheckBox(self.widget_8)
+        self.checkBox_2.setObjectName(u"checkBox_2")
+        self.checkBox_2.setFont(font2)
+
+        self.verticalLayout_6.addWidget(self.checkBox_2)
+
+
+        self.horizontalLayout_5.addWidget(self.widget_8)
+
 
         self.verticalLayout_5.addWidget(self.widget_6)
 
@@ -103,22 +135,22 @@ class Ui_Mainwindow(object):
 
         self.pushButton_5 = QPushButton(self.groupBox_6)
         self.pushButton_5.setObjectName(u"pushButton_5")
-        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(3)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
-        self.pushButton_5.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(3)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.pushButton_5.sizePolicy().hasHeightForWidth())
+        self.pushButton_5.setSizePolicy(sizePolicy1)
         self.pushButton_5.setFont(font)
 
         self.verticalLayout_2.addWidget(self.pushButton_5)
 
         self.widget = QWidget(self.groupBox_6)
         self.widget.setObjectName(u"widget")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
+        self.widget.setSizePolicy(sizePolicy2)
         self.horizontalLayout_2 = QHBoxLayout(self.widget)
         self.horizontalLayout_2.setSpacing(6)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -126,27 +158,27 @@ class Ui_Mainwindow(object):
         self.horizontalLayout_2.setContentsMargins(9, -1, -1, 9)
         self.pushButton = QPushButton(self.widget)
         self.pushButton.setObjectName(u"pushButton")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
-        sizePolicy2.setHorizontalStretch(2)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy2)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        sizePolicy3.setHorizontalStretch(2)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy3)
         self.pushButton.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.pushButton)
 
         self.pushButton_3 = QPushButton(self.widget)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
+        self.pushButton_3.setSizePolicy(sizePolicy1)
         self.pushButton_3.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.pushButton_3)
 
         self.pushButton_2 = QPushButton(self.widget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy2.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy2)
+        sizePolicy3.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
+        self.pushButton_2.setSizePolicy(sizePolicy3)
         self.pushButton_2.setFont(font)
 
         self.horizontalLayout_2.addWidget(self.pushButton_2)
@@ -176,11 +208,8 @@ class Ui_Mainwindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.groupBox_2 = QGroupBox(self.widget_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Preferred)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
-        self.groupBox_2.setSizePolicy(sizePolicy3)
+        sizePolicy.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
+        self.groupBox_2.setSizePolicy(sizePolicy)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.radioButton = QRadioButton(self.groupBox_2)
@@ -201,10 +230,8 @@ class Ui_Mainwindow(object):
 
         self.label_5 = QLabel(self.groupBox_2)
         self.label_5.setObjectName(u"label_5")
-        sizePolicy1.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
-        self.label_5.setSizePolicy(sizePolicy1)
-        font2 = QFont()
-        font2.setPointSize(12)
+        sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
+        self.label_5.setSizePolicy(sizePolicy2)
         self.label_5.setFont(font2)
 
         self.verticalLayout_3.addWidget(self.label_5)
@@ -295,10 +322,12 @@ class Ui_Mainwindow(object):
         self.groupBox_6.setTitle(QCoreApplication.translate("Mainwindow", u"\u97f3\u9891\u4fe1\u606f", None))
         self.label_2.setText(QCoreApplication.translate("Mainwindow", u"\u5f00\u59cb\u65f6\u95f4", None))
         self.label_3.setText(QCoreApplication.translate("Mainwindow", u"\u7ed3\u675f\u65f6\u95f4", None))
-        self.label_4.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u65f6\u95f4\u5207\u7684\u4e0d\u597d\uff0c\u8bf7\u4fee\u6539\u8fd9\u91cc\u7684\u8d77\u6b62\u65f6\u95f4\uff08\u5355\u4f4d\uff1a\u6beb\u79d2\uff09\n"
-"\u4fee\u6539\u540e\u70b9\u51fb\u64ad\u653e\u97f3\u9891\u53ef\u4ee5\u67e5\u770b\u6548\u679c\uff0c\u622a\u53d6\u5408\u9002\u540e\u70b9\u51fb\u786e\u5b9a\u6807\u6ce8\u624d\u80fd\n"
-"\u4fdd\u5b58\u4fee\u6539", None))
+        self.label_4.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u65f6\u95f4\u5207\u7684\u4e0d\u597d\uff0c\u8bf7\u4fee\u6539\u8fd9\u91cc\u7684\u8d77\u6b62\u65f6\u95f4\n"
+"\uff08\u5355\u4f4d\uff1a\u6beb\u79d2\uff09\u4fee\u6539\u540e\u70b9\u51fb\u64ad\u653e\u97f3\u9891\u53ef\u4ee5\u67e5\u770b\u6548\u679c\n"
+"\uff0c\u622a\u53d6\u5408\u9002\u540e\u70b9\u51fb\u786e\u5b9a\u6807\u6ce8\u624d\u80fd\u4fdd\u5b58\u4fee\u6539", None))
         self.pushButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u5237\u65b0\u6570\u636e\u5217\u8868", None))
+        self.checkBox.setText(QCoreApplication.translate("Mainwindow", u"\u5207\u6362\u6761\u76ee\u540e\u81ea\u52a8\u64ad\u653e", None))
+        self.checkBox_2.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8\u540e\u81ea\u52a8\u8df3\u5230\u4e0b\u4e00\u6761", None))
         self.pushButton_5.setText(QCoreApplication.translate("Mainwindow", u"\u64ad\u653e\u97f3\u9891", None))
         self.pushButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0a\u4e00\u6761", None))
         self.pushButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8", None))
