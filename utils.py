@@ -34,7 +34,7 @@ class LiteDB:
     def delete_sound_table(self, sound_name):
         c = self.conn.cursor()
         now_time = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-        c.execute(f'''ALTER TABLE {sound_name} RENAME TO {'_' + sound_name + '_' + now_time};''')
+        c.execute(f'''ALTER TABLE '{sound_name}' RENAME TO {'_' + sound_name + '_' + now_time};''')
         print(f"数据表 {sound_name} 被改名为 {'_' + sound_name + '_' + now_time}")
         self.conn.commit()
 
@@ -60,7 +60,7 @@ class LiteDB:
     def select_sound_path(self, name):
         """ 根据sound name（即表名）搜索音频文件位置 """
         c = self.conn.cursor()
-        result = c.execute(f"SELECT sound_file_path FROM {name} limit 1")
+        result = c.execute(f"SELECT sound_file_path FROM '{name}' limit 1")
         result_list = []
         for row in result:
             return row[0]
@@ -70,14 +70,14 @@ class LiteDB:
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
         result = c.execute(
-            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
         return list(result)
 
     def select_dataset_row(self, name, id, num=4):
         """ 搜索数据集里的其中一条数据 """
         c = self.conn.cursor()
         result = c.execute(
-            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM {name} WHERE sound_id = {id}")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE sound_id = {id}")
         return list(result)[0]
 
     def select_output_data(self, name, num=4):
@@ -85,9 +85,9 @@ class LiteDB:
         result_dict = {}
         c = self.conn.cursor()
         result = c.execute(
-            f"SELECT sound_text,sound_start,sound_end FROM {name} WHERE LENGTH(sound_text)>{num} AND checked=1 AND can_use=1 ORDER BY sound_start ASC")
+            f"SELECT sound_text,sound_start,sound_end FROM '{name}' WHERE LENGTH(sound_text)>{num} AND checked=1 AND can_use=1 ORDER BY sound_start ASC")
         result_dict["data_list"] = list(result)
-        result_dict["path"] = list(c.execute(f"SELECT sound_file_path FROM {name} limit 1"))[0][0]  # 顺序很重要
+        result_dict["path"] = list(c.execute(f"SELECT sound_file_path FROM '{name}' limit 1"))[0][0]  # 顺序很重要
         return result_dict
 
     def insert_sound_line(self, input_list, path, name):
@@ -95,7 +95,7 @@ class LiteDB:
         c = self.conn.cursor()
         for row in input_list:
             c.execute(
-                f"INSERT INTO {name}(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
+                f"INSERT INTO '{name}'(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
         self.conn.commit()
         print("数据插入成功")
 
@@ -103,7 +103,7 @@ class LiteDB:
         """ 更新标注信息 """
         c = self.conn.cursor()
         c.execute(
-            f"UPDATE {name} SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+            f"UPDATE '{name}' SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
         self.conn.commit()
         print(f"数据 {sound_obj.text} 更新成功")
 
