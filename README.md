@@ -14,6 +14,12 @@
 
 ### 1.安装依赖
 
+#### 直接下载最新的release文件
+
+在[这里](https://github.com/kslz/SoundLabel/releases)下载最新release的zip压缩包，然后解压双击exe文件即可使用，不过你还是需要安装[ffmpeg](https://ffmpeg.org/download.html#get-packages)
+
+#### 或者从源代码运行
+
 你需要 python3 环境和配置好的 [ffmpeg](https://ffmpeg.org/download.html#get-packages)
 
 运行`pip install -r requirements.txt` 安装所需依赖，如果你所在的地区网络不好可以尝试指定源，比如： `pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/`
