@@ -3,3 +3,6 @@
 *.wav
 .idea
 /test
+/build
+/dist
+/filepath/output

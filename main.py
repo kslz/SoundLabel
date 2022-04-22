@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QApplication
 
 import global_obj
 from ui import guiclass
-from utils import dictdir, LiteDB
+from utils import dictdir, LiteDB, check_mkdir
 from threading import Thread
 
 
@@ -16,6 +16,7 @@ def main():
     sound_type = ["wav", "mp3", "aac"]
 
     # 读取文件路径
+    check_mkdir(file_dict_path)
     srt_file_dict = {}
     file_dict = {}
     dictdir(file_dict_path, srt_file_dict, "srt")
