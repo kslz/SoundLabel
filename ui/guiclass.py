@@ -261,7 +261,7 @@ class MainWindow(QMainWindow):
         result_dict = db.select_output_data(name)
         # print(result_dict)
         try:
-            all_sound = AudioSegment.from_file(result_dict["path"]).set_frame_rate(16000).set_channels(1)
+            all_sound = AudioSegment.from_file(result_dict["path"]).set_channels(1)
         except:
             print(f"{result_dict['path']} 文件未找到，无法导出数据集")
 
@@ -270,7 +270,7 @@ class MainWindow(QMainWindow):
         for row in result_dict["data_list"]:
             i = i + 1
             all_sound[row[1]:row[2]].export(path + "data/wav/" + f"{name}_" + str(i) + ".wav", format="wav",
-                                            bitrate="16k",
+                                            # bitrate="16k",
                                             codec='pcm_s16le')
             write_str = write_str + f"{name}_" + str(i) + ".wav" + "\t" + row[0] + "\n"
 
