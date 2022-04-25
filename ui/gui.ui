@@ -207,7 +207,10 @@
            </font>
           </property>
           <property name="text">
-           <string>播放音频</string>
+           <string>播放音频(W)</string>
+          </property>
+          <property name="shortcut">
+           <string>W</string>
           </property>
          </widget>
         </item>
@@ -246,7 +249,10 @@
               </font>
              </property>
              <property name="text">
-              <string>上一条</string>
+              <string>上一条(A)</string>
+             </property>
+             <property name="shortcut">
+              <string>A</string>
              </property>
             </widget>
            </item>
@@ -264,7 +270,10 @@
               </font>
              </property>
              <property name="text">
-              <string>确定标注</string>
+              <string>确定标注(S)</string>
+             </property>
+             <property name="shortcut">
+              <string>S</string>
              </property>
             </widget>
            </item>
@@ -282,7 +291,10 @@
               </font>
              </property>
              <property name="text">
-              <string>下一条</string>
+              <string>下一条(D)</string>
+             </property>
+             <property name="shortcut">
+              <string>D</string>
              </property>
             </widget>
            </item>
