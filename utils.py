@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from pathlib import Path
 
 from pydub import AudioSegment
 import time
@@ -203,14 +204,15 @@ def file_r(path):
 
 
 def is_sound_file_ok(path):
-    is_ok = False
-    try:
-        AudioSegment.from_file(path)
-    except:
-        print(f"{path} 文件未找到，无法进入数据集")
-    else:
-        is_ok = True
-    return is_ok
+    return Path(path).is_file()
+    # is_ok = False
+    # try:
+    #     AudioSegment.from_file(path)
+    # except:
+    #     print(f"{path} 文件未找到，无法进入数据集")
+    # else:
+    #     is_ok = True
+    # return is_ok
 
 
 def check_mkdir(path):
