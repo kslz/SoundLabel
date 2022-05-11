@@ -228,6 +228,23 @@ class Ui_Mainwindow(object):
 
         self.verticalLayout_3.addWidget(self.label)
 
+        self.widget_9 = QWidget(self.groupBox_2)
+        self.widget_9.setObjectName(u"widget_9")
+        self.verticalLayout_8 = QVBoxLayout(self.widget_9)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.radioButton_3 = QRadioButton(self.widget_9)
+        self.radioButton_3.setObjectName(u"radioButton_3")
+
+        self.verticalLayout_8.addWidget(self.radioButton_3)
+
+        self.radioButton_4 = QRadioButton(self.widget_9)
+        self.radioButton_4.setObjectName(u"radioButton_4")
+
+        self.verticalLayout_8.addWidget(self.radioButton_4)
+
+
+        self.verticalLayout_3.addWidget(self.widget_9)
+
         self.label_5 = QLabel(self.groupBox_2)
         self.label_5.setObjectName(u"label_5")
         sizePolicy2.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
@@ -328,28 +345,18 @@ class Ui_Mainwindow(object):
         self.pushButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u5237\u65b0\u6570\u636e\u5217\u8868", None))
         self.checkBox.setText(QCoreApplication.translate("Mainwindow", u"\u5207\u6362\u6761\u76ee\u540e\u81ea\u52a8\u64ad\u653e", None))
         self.checkBox_2.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8\u540e\u81ea\u52a8\u8df3\u5230\u4e0b\u4e00\u6761", None))
-        self.pushButton_5.setText(QCoreApplication.translate("Mainwindow", u"\u64ad\u653e\u97f3\u9891(W)", None))
-#if QT_CONFIG(shortcut)
-        self.pushButton_5.setShortcut(QCoreApplication.translate("Mainwindow", u"W", None))
-#endif // QT_CONFIG(shortcut)
-        self.pushButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0a\u4e00\u6761(A)", None))
-#if QT_CONFIG(shortcut)
-        self.pushButton.setShortcut(QCoreApplication.translate("Mainwindow", u"A", None))
-#endif // QT_CONFIG(shortcut)
-        self.pushButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8(S)", None))
-#if QT_CONFIG(shortcut)
-        self.pushButton_3.setShortcut(QCoreApplication.translate("Mainwindow", u"S", None))
-#endif // QT_CONFIG(shortcut)
-        self.pushButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u4e0b\u4e00\u6761(D)", None))
-#if QT_CONFIG(shortcut)
-        self.pushButton_2.setShortcut(QCoreApplication.translate("Mainwindow", u"D", None))
-#endif // QT_CONFIG(shortcut)
+        self.pushButton_5.setText(QCoreApplication.translate("Mainwindow", u"\u64ad\u653e\u97f3\u9891", None))
+        self.pushButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0a\u4e00\u6761", None))
+        self.pushButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u786e\u5b9a\u6807\u6ce8", None))
+        self.pushButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u4e0b\u4e00\u6761", None))
         self.groupBox.setTitle(QCoreApplication.translate("Mainwindow", u"\u6807\u6ce8\u4fe1\u606f", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("Mainwindow", u"\u662f\u5426\u53ef\u7528", None))
         self.radioButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0d\u53ef\u7528", None))
         self.radioButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u53ef\u7528", None))
         self.label.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u8fd9\u6761\u6548\u679c\n"
 "\u592a\u5dee\u4e86\u8bf7\u9009\u62e9\u4e0d\u53ef\u7528", None))
+        self.radioButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u7ef4\u5ea61", None))
+        self.radioButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u7ef4\u5ea62", None))
         self.label_5.setText(QCoreApplication.translate("Mainwindow", u"\u5f53\u524d\u7f16\u53f7\uff1a1024", None))
         self.pushButton_6.setText(QCoreApplication.translate("Mainwindow", u"\u5bfc\u51fa\u5f53\u524d\u97f3\u9891", None))
         self.pushButton_7.setText(QCoreApplication.translate("Mainwindow", u"\u8fd4\u56de\u9996\u9875", None))

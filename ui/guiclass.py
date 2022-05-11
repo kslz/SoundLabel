@@ -33,6 +33,10 @@ class WorkSpaceWindow(QFrame):
         self.btn_group.addButton(self.ui.radioButton, 0)
         self.btn_group.addButton(self.ui.radioButton_2, 1)
 
+        self.btn_group_2 = QButtonGroup(self.ui.groupBox_2)
+        self.btn_group_2.addButton(self.ui.radioButton_3, 0)
+        self.btn_group_2.addButton(self.ui.radioButton_4, 1)
+
     def click_refreshBTN(self):
         """ 点击刷新数据列表按钮后触发的槽函数 """
         print("刷新表格")

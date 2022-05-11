@@ -207,10 +207,7 @@
            </font>
           </property>
           <property name="text">
-           <string>播放音频(W)</string>
-          </property>
-          <property name="shortcut">
-           <string>W</string>
+           <string>播放音频</string>
           </property>
          </widget>
         </item>
@@ -249,10 +246,7 @@
               </font>
              </property>
              <property name="text">
-              <string>上一条(A)</string>
-             </property>
-             <property name="shortcut">
-              <string>A</string>
+              <string>上一条</string>
              </property>
             </widget>
            </item>
@@ -270,10 +264,7 @@
               </font>
              </property>
              <property name="text">
-              <string>确定标注(S)</string>
-             </property>
-             <property name="shortcut">
-              <string>S</string>
+              <string>确定标注</string>
              </property>
             </widget>
            </item>
@@ -291,10 +282,7 @@
               </font>
              </property>
              <property name="text">
-              <string>下一条(D)</string>
-             </property>
-             <property name="shortcut">
-              <string>D</string>
+              <string>下一条</string>
              </property>
             </widget>
            </item>
@@ -360,6 +348,26 @@
                <string>如果你觉得这条效果
 太差了请选择不可用</string>
               </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_9" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QRadioButton" name="radioButton_3">
+                 <property name="text">
+                  <string>维度1</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="radioButton_4">
+                 <property name="text">
+                  <string>维度2</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
             <item>
@@ -512,7 +520,7 @@
    <slot>click_refreshBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>699</x>
+     <x>478</x>
      <y>190</y>
     </hint>
     <hint type="destinationlabel">
@@ -544,8 +552,8 @@
    <slot>click_backBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>170</x>
-     <y>750</y>
+     <x>199</x>
+     <y>307</y>
     </hint>
     <hint type="destinationlabel">
      <x>181</x>
@@ -560,8 +568,8 @@
    <slot>click_nextBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>561</x>
-     <y>760</y>
+     <x>708</x>
+     <y>307</y>
     </hint>
     <hint type="destinationlabel">
      <x>667</x>
@@ -576,8 +584,8 @@
    <slot>click_checkBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>755</y>
+     <x>511</x>
+     <y>307</y>
     </hint>
     <hint type="destinationlabel">
      <x>440</x>
@@ -592,11 +600,11 @@
    <slot>click_output_now()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>645</y>
+     <x>147</x>
+     <y>725</y>
     </hint>
     <hint type="destinationlabel">
-     <x>5</x>
+     <x>3</x>
      <y>661</y>
     </hint>
    </hints>
@@ -608,8 +616,8 @@
    <slot>click_back_to_main()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>692</y>
+     <x>126</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
