@@ -202,6 +202,19 @@ def file_r(path):
     with open(path, 'r', encoding="UTF-8") as f:
         return f.read()
 
+def file_w(path, text, mode, encoding="UTF-8"):
+    """
+    用于向文件中写入
+
+    :param path: 文件路径
+    :param text: 要写入的数据
+    :param mode: 写入模式 a为追加 w为覆写
+    :param encoding: 文档编码格式
+
+    """
+    with open(path, mode, encoding=encoding) as f:
+        f.write(text)
+
 
 def is_sound_file_ok(path):
     return Path(path).is_file()
