@@ -13,7 +13,7 @@ def main():
 
     db_path = "db/data.db"
     file_dict_path = "filepath/"
-    sound_type = ["wav", "mp3", "aac"]
+    sound_type = ["wav", "mp3", "aac", "m4a"]
 
     # 读取文件路径
     check_mkdir(file_dict_path)
