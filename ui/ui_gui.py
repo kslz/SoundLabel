@@ -355,8 +355,8 @@ class Ui_Mainwindow(object):
         self.radioButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u53ef\u7528", None))
         self.label.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u8fd9\u6761\u6548\u679c\n"
 "\u592a\u5dee\u4e86\u8bf7\u9009\u62e9\u4e0d\u53ef\u7528", None))
-        self.radioButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u7ef4\u5ea61", None))
-        self.radioButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u7ef4\u5ea62", None))
+        self.radioButton_3.setText(QCoreApplication.translate("Mainwindow", u"\u9177\u76d6", None))
+        self.radioButton_4.setText(QCoreApplication.translate("Mainwindow", u"\u8f6f\u59b9", None))
         self.label_5.setText(QCoreApplication.translate("Mainwindow", u"\u5f53\u524d\u7f16\u53f7\uff1a1024", None))
         self.pushButton_6.setText(QCoreApplication.translate("Mainwindow", u"\u5bfc\u51fa\u5f53\u524d\u97f3\u9891", None))
         self.pushButton_7.setText(QCoreApplication.translate("Mainwindow", u"\u8fd4\u56de\u9996\u9875", None))

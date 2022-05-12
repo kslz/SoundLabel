@@ -28,6 +28,7 @@ class LiteDB:
             "checked" integer NOT NULL DEFAULT 0,
             "can_use" integer NOT NULL DEFAULT 1,
             "sound_file_path" TEXT NOT NULL,
+            "other" integer NOT NULL DEFAULT 0,
             PRIMARY KEY ("sound_id"));''')
         print(f"数据表 {sound_name} 创建成功")
         self.conn.commit()
@@ -71,14 +72,14 @@ class LiteDB:
         c = self.conn.cursor()
         # result = c.execute(f"SELECT ROW_NUMBER() OVER(ORDER BY sound_start ASC)-1 AS xuhao ,sound_text,sound_start,sound_end,checked,can_use FROM {name} ORDER BY sound_start ASC")
         result = c.execute(
-            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use,other FROM '{name}' WHERE LENGTH(sound_text)>{num} ORDER BY sound_start ASC")
         return list(result)
 
     def select_dataset_row(self, name, id, num=4):
         """ 搜索数据集里的其中一条数据 """
         c = self.conn.cursor()
         result = c.execute(
-            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use FROM '{name}' WHERE sound_id = {id}")
+            f"SELECT sound_id,sound_text,sound_start,sound_end,checked,can_use,other FROM '{name}' WHERE sound_id = {id}")
         return list(result)[0]
 
     def select_output_data(self, name, num=4):
@@ -104,7 +105,7 @@ class LiteDB:
         """ 更新标注信息 """
         c = self.conn.cursor()
         c.execute(
-            f"UPDATE '{name}' SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use} WHERE sound_id = {sound_obj.id}")
+            f"UPDATE '{name}' SET sound_text = '{sound_obj.text}', sound_start = {sound_obj.start}, sound_end = {sound_obj.end}, checked = {sound_obj.checked}, can_use = {sound_obj.can_use},other = {sound_obj.other} WHERE sound_id = {sound_obj.id}")
         self.conn.commit()
         print(f"数据 {sound_obj.text} 更新成功")
 
@@ -117,6 +118,7 @@ class MySound:
         self.end = info_list[3]
         self.checked = info_list[4]
         self.can_use = info_list[5]
+        self.other = info_list[6]
 
 
 class WorkSpaceData:

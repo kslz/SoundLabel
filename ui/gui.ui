@@ -356,14 +356,14 @@
                <item>
                 <widget class="QRadioButton" name="radioButton_3">
                  <property name="text">
-                  <string>维度1</string>
+                  <string>酷盖</string>
                  </property>
                 </widget>
                </item>
                <item>
                 <widget class="QRadioButton" name="radioButton_4">
                  <property name="text">
-                  <string>维度2</string>
+                  <string>软妹</string>
                  </property>
                 </widget>
                </item>

@@ -88,6 +88,10 @@ class WorkSpaceWindow(QFrame):
             now_sound_info.can_use = 1
         else:
             now_sound_info.can_use = self.btn_group.checkedId()
+        if self.btn_group_2.checkedId() == -1:
+            now_sound_info.other = 0
+        else:
+            now_sound_info.other = self.btn_group_2.checkedId()
         db.update_sound(now_sound_info, self.work_space_data.name)
         self.refresh_table_line()
         if self.ui.checkBox_2.isChecked():
@@ -191,6 +195,11 @@ class WorkSpaceWindow(QFrame):
             self.ui.radioButton.setChecked(True)
         elif now_sound_info.can_use == 1:
             self.ui.radioButton_2.setChecked(True)
+
+        if now_sound_info.other == 0:
+            self.ui.radioButton_3.setChecked(True)
+        elif now_sound_info.can_use == 1:
+            self.ui.radioButton_4.setChecked(True)
 
         # 刷新上一条下一条按钮状态
         if self.ui.tableWidget.rowCount() - 1 == self.work_space_data.now_sound_index:
