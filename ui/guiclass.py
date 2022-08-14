@@ -282,10 +282,10 @@ class MainWindow(QMainWindow):
         write_str = ""
         for row in result_dict["data_list"]:
             i = i + 1
-            all_sound[row[1]:row[2]].export(path + "data/wav/" + f"{name}_" + str(i) + ".wav", format="wav",
+            all_sound[row[1]:row[2]].export(path + "data/wav/" + f"SSB1956{name}_" + str(i) + ".wav", format="wav",
                                             # bitrate="16k",
                                             codec='pcm_s16le')
-            write_str = write_str + f"{name}_" + str(i) + ".wav" + "\t" + row[0] + "\n"
+            write_str = write_str + f"SSB1956{name}_" + str(i) + ".wav" + "\t" + row[0] + "\n"
 
         with open(path + "data/trans/sample.txt", "a", encoding="UTF-8") as f:
             f.write(write_str)

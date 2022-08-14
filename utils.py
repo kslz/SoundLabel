@@ -87,7 +87,7 @@ class LiteDB:
         result_dict = {}
         c = self.conn.cursor()
         result = c.execute(
-            f"SELECT sound_text,sound_start,sound_end FROM '{name}' WHERE LENGTH(sound_text)>{num} AND checked=1 AND can_use=1 ORDER BY sound_start ASC")
+            f"SELECT sound_text,sound_start,sound_end FROM '{name}' WHERE LENGTH(sound_text)>{num} AND checked=1 AND can_use=1 AND other = 1 ORDER BY sound_start ASC")
         result_dict["data_list"] = list(result)
         result_dict["path"] = list(c.execute(f"SELECT sound_file_path FROM '{name}' limit 1"))[0][0]  # 顺序很重要
         return result_dict
