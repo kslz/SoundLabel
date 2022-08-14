@@ -18,6 +18,8 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QFrame, QPushButton, QT
 
 from ui import ui_main, ui_gui, ui_inputdata, ui_wait
 
+import traceback
+
 
 class WorkSpaceWindow(QFrame):
     def __init__(self):
@@ -32,6 +34,27 @@ class WorkSpaceWindow(QFrame):
         self.btn_group = QButtonGroup(self.ui.groupBox_2)
         self.btn_group.addButton(self.ui.radioButton, 0)
         self.btn_group.addButton(self.ui.radioButton_2, 1)
+
+    def click_change_start_BTN(self,mtime):
+        try:
+            curmtime = int(self.ui.lineEdit_2.text())
+            # print(curmtime,mtime)
+            curmtime = curmtime + int(mtime)
+        except:
+            curmtime = 0
+            traceback.print_exc()
+            pass
+        self.ui.lineEdit_2.setText(str(curmtime))
+
+    def click_change_end_BTN(self,mtime):
+        try:
+            curmtime = int(self.ui.lineEdit_3.text())
+            curmtime = curmtime + int(mtime)
+        except:
+            curmtime = 0
+            traceback.print_exc()
+            pass
+        self.ui.lineEdit_3.setText(str(curmtime))
 
     def click_refreshBTN(self):
         """ 点击刷新数据列表按钮后触发的槽函数 """

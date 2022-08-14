@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'gui.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.0
+## Created by: Qt User Interface Compiler version 6.3.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -58,6 +58,50 @@ class Ui_Mainwindow(object):
 
         self.horizontalLayout_3.addWidget(self.lineEdit_2)
 
+        self.pushButton_start_100 = QPushButton(self.widget_4)
+        self.pushButton_start_100.setObjectName(u"pushButton_start_100")
+        font1 = QFont()
+        font1.setPointSize(10)
+        self.pushButton_start_100.setFont(font1)
+        self.pushButton_start_100.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_100)
+
+        self.pushButton_start_200 = QPushButton(self.widget_4)
+        self.pushButton_start_200.setObjectName(u"pushButton_start_200")
+        self.pushButton_start_200.setFont(font1)
+        self.pushButton_start_200.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_200)
+
+        self.pushButton_start_500 = QPushButton(self.widget_4)
+        self.pushButton_start_500.setObjectName(u"pushButton_start_500")
+        self.pushButton_start_500.setFont(font1)
+        self.pushButton_start_500.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_500)
+
+        self.pushButton_start_100_n = QPushButton(self.widget_4)
+        self.pushButton_start_100_n.setObjectName(u"pushButton_start_100_n")
+        self.pushButton_start_100_n.setFont(font1)
+        self.pushButton_start_100_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_100_n)
+
+        self.pushButton_start_200_n = QPushButton(self.widget_4)
+        self.pushButton_start_200_n.setObjectName(u"pushButton_start_200_n")
+        self.pushButton_start_200_n.setFont(font1)
+        self.pushButton_start_200_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_200_n)
+
+        self.pushButton_start_500_n = QPushButton(self.widget_4)
+        self.pushButton_start_500_n.setObjectName(u"pushButton_start_500_n")
+        self.pushButton_start_500_n.setFont(font1)
+        self.pushButton_start_500_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_3.addWidget(self.pushButton_start_500_n)
+
 
         self.verticalLayout_5.addWidget(self.widget_4)
 
@@ -76,6 +120,48 @@ class Ui_Mainwindow(object):
 
         self.horizontalLayout_4.addWidget(self.lineEdit_3)
 
+        self.pushButton_end_100 = QPushButton(self.widget_5)
+        self.pushButton_end_100.setObjectName(u"pushButton_end_100")
+        self.pushButton_end_100.setFont(font1)
+        self.pushButton_end_100.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_100)
+
+        self.pushButton_end_200 = QPushButton(self.widget_5)
+        self.pushButton_end_200.setObjectName(u"pushButton_end_200")
+        self.pushButton_end_200.setFont(font1)
+        self.pushButton_end_200.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_200)
+
+        self.pushButton_end_500 = QPushButton(self.widget_5)
+        self.pushButton_end_500.setObjectName(u"pushButton_end_500")
+        self.pushButton_end_500.setFont(font1)
+        self.pushButton_end_500.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_500)
+
+        self.pushButton_end_100_n = QPushButton(self.widget_5)
+        self.pushButton_end_100_n.setObjectName(u"pushButton_end_100_n")
+        self.pushButton_end_100_n.setFont(font1)
+        self.pushButton_end_100_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_100_n)
+
+        self.pushButton_end_200_n = QPushButton(self.widget_5)
+        self.pushButton_end_200_n.setObjectName(u"pushButton_end_200_n")
+        self.pushButton_end_200_n.setFont(font1)
+        self.pushButton_end_200_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_200_n)
+
+        self.pushButton_end_500_n = QPushButton(self.widget_5)
+        self.pushButton_end_500_n.setObjectName(u"pushButton_end_500_n")
+        self.pushButton_end_500_n.setFont(font1)
+        self.pushButton_end_500_n.setIconSize(QSize(14, 14))
+
+        self.horizontalLayout_4.addWidget(self.pushButton_end_500_n)
+
 
         self.verticalLayout_5.addWidget(self.widget_5)
 
@@ -85,8 +171,6 @@ class Ui_Mainwindow(object):
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
         self.label_4 = QLabel(self.widget_6)
         self.label_4.setObjectName(u"label_4")
-        font1 = QFont()
-        font1.setPointSize(10)
         self.label_4.setFont(font1)
 
         self.horizontalLayout_5.addWidget(self.label_4)
@@ -313,6 +397,18 @@ class Ui_Mainwindow(object):
         self.pushButton_3.clicked.connect(Mainwindow.click_checkBTN)
         self.pushButton_6.clicked.connect(Mainwindow.click_output_now)
         self.pushButton_7.clicked.connect(Mainwindow.click_back_to_main)
+        self.pushButton_start_100.clicked.connect(lambda: Mainwindow.click_change_start_BTN(100))
+        self.pushButton_start_200.clicked.connect(lambda: Mainwindow.click_change_start_BTN(200))
+        self.pushButton_start_500.clicked.connect(lambda: Mainwindow.click_change_start_BTN(500))
+        self.pushButton_start_500_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-500))
+        self.pushButton_start_200_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-200))
+        self.pushButton_start_100_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-100))
+        self.pushButton_end_100.clicked.connect(lambda: Mainwindow.click_change_end_BTN(100))
+        self.pushButton_end_200.clicked.connect(lambda: Mainwindow.click_change_end_BTN(200))
+        self.pushButton_end_500.clicked.connect(lambda: Mainwindow.click_change_end_BTN(500))
+        self.pushButton_end_500_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-500))
+        self.pushButton_end_200_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-200))
+        self.pushButton_end_100_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-100))
 
         QMetaObject.connectSlotsByName(Mainwindow)
     # setupUi
@@ -321,7 +417,19 @@ class Ui_Mainwindow(object):
         Mainwindow.setWindowTitle(QCoreApplication.translate("Mainwindow", u"\u8bed\u97f3\u6807\u8bb0", None))
         self.groupBox_6.setTitle(QCoreApplication.translate("Mainwindow", u"\u97f3\u9891\u4fe1\u606f", None))
         self.label_2.setText(QCoreApplication.translate("Mainwindow", u"\u5f00\u59cb\u65f6\u95f4", None))
+        self.pushButton_start_100.setText(QCoreApplication.translate("Mainwindow", u"+100", None))
+        self.pushButton_start_200.setText(QCoreApplication.translate("Mainwindow", u"+200", None))
+        self.pushButton_start_500.setText(QCoreApplication.translate("Mainwindow", u"+500", None))
+        self.pushButton_start_100_n.setText(QCoreApplication.translate("Mainwindow", u"-100", None))
+        self.pushButton_start_200_n.setText(QCoreApplication.translate("Mainwindow", u"-200", None))
+        self.pushButton_start_500_n.setText(QCoreApplication.translate("Mainwindow", u"-500", None))
         self.label_3.setText(QCoreApplication.translate("Mainwindow", u"\u7ed3\u675f\u65f6\u95f4", None))
+        self.pushButton_end_100.setText(QCoreApplication.translate("Mainwindow", u"+100", None))
+        self.pushButton_end_200.setText(QCoreApplication.translate("Mainwindow", u"+200", None))
+        self.pushButton_end_500.setText(QCoreApplication.translate("Mainwindow", u"+500", None))
+        self.pushButton_end_100_n.setText(QCoreApplication.translate("Mainwindow", u"-100", None))
+        self.pushButton_end_200_n.setText(QCoreApplication.translate("Mainwindow", u"-200", None))
+        self.pushButton_end_500_n.setText(QCoreApplication.translate("Mainwindow", u"-500", None))
         self.label_4.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u65f6\u95f4\u5207\u7684\u4e0d\u597d\uff0c\u8bf7\u4fee\u6539\u8fd9\u91cc\u7684\u8d77\u6b62\u65f6\u95f4\n"
 "\uff08\u5355\u4f4d\uff1a\u6beb\u79d2\uff09\u4fee\u6539\u540e\u70b9\u51fb\u64ad\u653e\u97f3\u9891\u53ef\u4ee5\u67e5\u770b\u6548\u679c\n"
 "\uff0c\u622a\u53d6\u5408\u9002\u540e\u70b9\u51fb\u786e\u5b9a\u6807\u6ce8\u624d\u80fd\u4fdd\u5b58\u4fee\u6539", None))
