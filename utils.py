@@ -96,7 +96,7 @@ class LiteDB:
         c = self.conn.cursor()
         for row in input_list:
             c.execute(
-                f"INSERT INTO '{name}'(sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
+                f"INSERT INTO '{name}' (sound_text, sound_start, sound_end, sound_file_path) VALUES ('{row[0]}', {row[1]}, {row[2]}, '{path}')")
         self.conn.commit()
         print("数据插入成功")
 
