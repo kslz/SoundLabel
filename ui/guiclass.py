@@ -3,11 +3,13 @@ import time
 from threading import Thread
 from time import sleep
 
+import pyaudio
 import pysrt
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from pydub import AudioSegment
 from pydub.playback import play
+from pydub.utils import make_chunks
 
 import global_obj
 
@@ -35,7 +37,7 @@ class WorkSpaceWindow(QFrame):
         self.btn_group.addButton(self.ui.radioButton, 0)
         self.btn_group.addButton(self.ui.radioButton_2, 1)
 
-    def click_change_start_BTN(self,mtime):
+    def click_change_start_BTN(self, mtime):
         try:
             curmtime = int(self.ui.lineEdit_2.text())
             # print(curmtime,mtime)
@@ -46,7 +48,7 @@ class WorkSpaceWindow(QFrame):
             pass
         self.ui.lineEdit_2.setText(str(curmtime))
 
-    def click_change_end_BTN(self,mtime):
+    def click_change_end_BTN(self, mtime):
         try:
             curmtime = int(self.ui.lineEdit_3.text())
             curmtime = curmtime + int(mtime)
@@ -71,7 +73,7 @@ class WorkSpaceWindow(QFrame):
         """ 点击播放音频后触发的槽函数 """
         print("播放声音")
 
-        play_thread = Thread(target=self.play_sound)
+        play_thread = Thread(target=self.new_play_sound)
         play_thread.start()
         # play_thread.join()  # 多线程 永远的神 不加界面就阻塞了
 
@@ -84,6 +86,38 @@ class WorkSpaceWindow(QFrame):
             print("请输入以毫秒为单位的纯数字")
         else:
             play(self.work_space_data.sound[start:end])
+
+    def new_play_sound(self):
+        """" 在指定音频设备上播放音频 同时检查是不是正常的数字 """
+        try:
+            start = int(self.ui.lineEdit_2.text())
+            end = int(self.ui.lineEdit_3.text())
+        except:
+            print("请输入以毫秒为单位的纯数字")
+        else:
+            seg = self.work_space_data.sound[start:end]
+            device_map = global_obj.get_value("device_map")
+            index = device_map[self.ui.comboBox.currentText()]
+            import pyaudio
+
+            p = pyaudio.PyAudio()
+            stream = p.open(format=p.get_format_from_width(seg.sample_width),
+                            channels=seg.channels,
+                            rate=seg.frame_rate,
+                            output=True,
+                            output_device_index=index)
+
+            # Just in case there were any exceptions/interrupts, we release the resource
+            # So as not to raise OSError: Device Unavailable should play() be used again
+            try:
+                # break audio into half-second chunks (to allows keyboard interrupts)
+                for chunk in make_chunks(seg, 500):
+                    stream.write(chunk._data)
+            finally:
+                stream.stop_stream()
+                stream.close()
+
+                p.terminate()
 
     def click_backBTN(self):
         print(f"返回上一个声音 序号{self.work_space_data.now_sound_index - 1}")
@@ -145,6 +179,25 @@ class WorkSpaceWindow(QFrame):
             i = i + 1  # 半自动经典for循环 index不好用
         self.refresh_now_sound()
         self.ui.tableWidget.resizeColumnsToContents()  # 表格列宽自动调整
+
+        # 获取所有音频播放设备
+        cbox = self.ui.comboBox
+        cbox.clear()
+        p = pyaudio.PyAudio()
+        audio_device_map = {}
+        device_index = 0
+
+        for i in range(p.get_device_count()):
+            device = p.get_device_info_by_index(i)
+            if device.get('maxOutputChannels', 0) > 0:
+                index = device.get("index")
+                audio_device_map[str(index) + ":" + device.get("name")] = device.get("index")
+
+        # cbox.addItem('默认设备')
+        for i in audio_device_map:
+            cbox.addItem(i)
+
+        global_obj.set_value("device_map", audio_device_map)
 
     def sound_obj_to_row(self, sound_obj, sound_id):
         """ 传入一个sound_obj，给表格中加一行 """
@@ -242,7 +295,7 @@ class WorkSpaceWindow(QFrame):
                 path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime()) + ".wav",
                 format="wav", bitrate="16k", codec='pcm_s16le')
         print("导出当前文件为:" + path + self.work_space_data.name + '_' + time.strftime("%Y_%m_%d_%H_%M_%S",
-                                                                                  time.localtime()) + ".wav")
+                                                                                         time.localtime()) + ".wav")
 
     def click_back_to_main(self):
         """ 返回首页窗口 """
@@ -379,7 +432,8 @@ class MainWindow(QMainWindow):
         # yes_btn.setText("是")
         # no_btn = QMessageBox.No
         # no_btn.setText("否")
-        is_delete = QMessageBox.question(self, "删除数据集", f"确定删除数据集 {name} ？\n删除后你可以在数据库中手动将其找回",
+        is_delete = QMessageBox.question(self, "删除数据集",
+                                         f"确定删除数据集 {name} ？\n删除后你可以在数据库中手动将其找回",
                                          QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.No)
         if is_delete == QMessageBox.Yes:

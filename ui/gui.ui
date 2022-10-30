@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>738</width>
+    <width>723</width>
     <height>799</height>
    </rect>
   </property>
@@ -538,11 +538,11 @@
       </item>
       <item row="1" column="0">
        <widget class="QWidget" name="widget_3" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,5">
          <item>
           <widget class="QGroupBox" name="groupBox_2">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -563,6 +563,51 @@
               <property name="text">
                <string>可用</string>
               </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>选择音频播放设备
+注：第一个为系统默认设备</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="comboBox">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Ignored" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>16</width>
+                <height>16</height>
+               </size>
+              </property>
+              <item>
+               <property name="text">
+                <string>123</string>
+               </property>
+              </item>
              </widget>
             </item>
             <item>
@@ -625,6 +670,12 @@
          </item>
          <item>
           <widget class="QGroupBox" name="groupBox_3">
+           <property name="maximumSize">
+            <size>
+             <width>525</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <pointsize>16</pointsize>
@@ -644,6 +695,12 @@
               <layout class="QHBoxLayout" name="horizontalLayout_6">
                <item>
                 <widget class="QTableWidget" name="tableWidget">
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
                  <property name="font">
                   <font>
                    <pointsize>10</pointsize>
@@ -728,8 +785,8 @@
    <slot>click_refreshBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>510</x>
-     <y>180</y>
+     <x>478</x>
+     <y>190</y>
     </hint>
     <hint type="destinationlabel">
      <x>289</x>
@@ -776,8 +833,8 @@
    <slot>click_nextBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>712</x>
-     <y>283</y>
+     <x>708</x>
+     <y>307</y>
     </hint>
     <hint type="destinationlabel">
      <x>667</x>
@@ -792,8 +849,8 @@
    <slot>click_checkBTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>513</x>
-     <y>283</y>
+     <x>511</x>
+     <y>307</y>
     </hint>
     <hint type="destinationlabel">
      <x>440</x>
@@ -808,8 +865,8 @@
    <slot>click_output_now()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>141</x>
-     <y>734</y>
+     <x>154</x>
+     <y>725</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -824,8 +881,8 @@
    <slot>click_back_to_main()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>122</x>
-     <y>764</y>
+     <x>154</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -888,8 +945,8 @@
    <slot>click_change_start_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>499</x>
-     <y>59</y>
+     <x>706</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -920,8 +977,8 @@
    <slot>click_change_start_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>672</x>
-     <y>66</y>
+     <x>544</x>
+     <y>84</y>
     </hint>
     <hint type="destinationlabel">
      <x>648</x>
@@ -936,8 +993,8 @@
    <slot>click_change_end_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>111</y>
+     <x>301</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>746</x>
@@ -968,8 +1025,8 @@
    <slot>click_change_end_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>435</x>
-     <y>100</y>
+     <x>463</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>751</x>
@@ -984,8 +1041,8 @@
    <slot>click_change_end_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>521</x>
-     <y>106</y>
+     <x>706</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>772</x>
@@ -1016,8 +1073,8 @@
    <slot>click_change_end_BTN()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>641</x>
-     <y>112</y>
+     <x>544</x>
+     <y>126</y>
     </hint>
     <hint type="destinationlabel">
      <x>796</x>

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'gui.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.3.1
+## Created by: Qt User Interface Compiler version 6.3.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,16 +15,17 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QGroupBox,
-    QHBoxLayout, QHeaderView, QLabel, QLayout,
-    QLineEdit, QPushButton, QRadioButton, QSizePolicy,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGridLayout,
+    QGroupBox, QHBoxLayout, QHeaderView, QLabel,
+    QLayout, QLineEdit, QPushButton, QRadioButton,
+    QSizePolicy, QTableWidget, QTableWidgetItem, QVBoxLayout,
+    QWidget)
 
 class Ui_Mainwindow(object):
     def setupUi(self, Mainwindow):
         if not Mainwindow.objectName():
             Mainwindow.setObjectName(u"Mainwindow")
-        Mainwindow.resize(738, 799)
+        Mainwindow.resize(723, 799)
         Mainwindow.setMinimumSize(QSize(0, 0))
         self.verticalLayout = QVBoxLayout(Mainwindow)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -292,8 +293,11 @@ class Ui_Mainwindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.groupBox_2 = QGroupBox(self.widget_3)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        sizePolicy.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
-        self.groupBox_2.setSizePolicy(sizePolicy)
+        sizePolicy4 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.groupBox_2.sizePolicy().hasHeightForWidth())
+        self.groupBox_2.setSizePolicy(sizePolicy4)
         self.verticalLayout_3 = QVBoxLayout(self.groupBox_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.radioButton = QRadioButton(self.groupBox_2)
@@ -305,6 +309,26 @@ class Ui_Mainwindow(object):
         self.radioButton_2.setObjectName(u"radioButton_2")
 
         self.verticalLayout_3.addWidget(self.radioButton_2)
+
+        self.label_6 = QLabel(self.groupBox_2)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setFont(font1)
+
+        self.verticalLayout_3.addWidget(self.label_6)
+
+        self.comboBox = QComboBox(self.groupBox_2)
+        self.comboBox.addItem("")
+        self.comboBox.setObjectName(u"comboBox")
+        sizePolicy5 = QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
+        self.comboBox.setSizePolicy(sizePolicy5)
+        self.comboBox.setMaximumSize(QSize(16777215, 16777215))
+        self.comboBox.setFont(font1)
+        self.comboBox.setIconSize(QSize(16, 16))
+
+        self.verticalLayout_3.addWidget(self.comboBox)
 
         self.label = QLabel(self.groupBox_2)
         self.label.setObjectName(u"label")
@@ -337,6 +361,7 @@ class Ui_Mainwindow(object):
 
         self.groupBox_3 = QGroupBox(self.widget_3)
         self.groupBox_3.setObjectName(u"groupBox_3")
+        self.groupBox_3.setMaximumSize(QSize(525, 16777215))
         self.groupBox_3.setFont(font)
         self.verticalLayout_4 = QVBoxLayout(self.groupBox_3)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
@@ -369,6 +394,7 @@ class Ui_Mainwindow(object):
         __qtablewidgetitem8 = QTableWidgetItem()
         self.tableWidget.setItem(0, 2, __qtablewidgetitem8)
         self.tableWidget.setObjectName(u"tableWidget")
+        self.tableWidget.setMaximumSize(QSize(16777215, 16777215))
         self.tableWidget.setFont(font1)
         self.tableWidget.viewport().setProperty("cursor", QCursor(Qt.ArrowCursor))
         self.tableWidget.setFocusPolicy(Qt.StrongFocus)
@@ -382,6 +408,8 @@ class Ui_Mainwindow(object):
 
         self.horizontalLayout.addWidget(self.groupBox_3)
 
+        self.horizontalLayout.setStretch(0, 1)
+        self.horizontalLayout.setStretch(1, 5)
 
         self.gridLayout_2.addWidget(self.widget_3, 1, 0, 1, 1)
 
@@ -397,18 +425,18 @@ class Ui_Mainwindow(object):
         self.pushButton_3.clicked.connect(Mainwindow.click_checkBTN)
         self.pushButton_6.clicked.connect(Mainwindow.click_output_now)
         self.pushButton_7.clicked.connect(Mainwindow.click_back_to_main)
-        self.pushButton_start_100.clicked.connect(lambda: Mainwindow.click_change_start_BTN(100))
-        self.pushButton_start_200.clicked.connect(lambda: Mainwindow.click_change_start_BTN(200))
-        self.pushButton_start_500.clicked.connect(lambda: Mainwindow.click_change_start_BTN(500))
-        self.pushButton_start_500_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-500))
-        self.pushButton_start_200_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-200))
-        self.pushButton_start_100_n.clicked.connect(lambda: Mainwindow.click_change_start_BTN(-100))
-        self.pushButton_end_100.clicked.connect(lambda: Mainwindow.click_change_end_BTN(100))
-        self.pushButton_end_200.clicked.connect(lambda: Mainwindow.click_change_end_BTN(200))
-        self.pushButton_end_500.clicked.connect(lambda: Mainwindow.click_change_end_BTN(500))
-        self.pushButton_end_500_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-500))
-        self.pushButton_end_200_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-200))
-        self.pushButton_end_100_n.clicked.connect(lambda: Mainwindow.click_change_end_BTN(-100))
+        self.pushButton_start_100.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_start_200.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_start_500.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_start_500_n.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_start_200_n.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_start_100_n.clicked.connect(Mainwindow.click_change_start_BTN)
+        self.pushButton_end_100.clicked.connect(Mainwindow.click_change_end_BTN)
+        self.pushButton_end_200.clicked.connect(Mainwindow.click_change_end_BTN)
+        self.pushButton_end_500.clicked.connect(Mainwindow.click_change_end_BTN)
+        self.pushButton_end_500_n.clicked.connect(Mainwindow.click_change_end_BTN)
+        self.pushButton_end_200_n.clicked.connect(Mainwindow.click_change_end_BTN)
+        self.pushButton_end_100_n.clicked.connect(Mainwindow.click_change_end_BTN)
 
         QMetaObject.connectSlotsByName(Mainwindow)
     # setupUi
@@ -456,6 +484,10 @@ class Ui_Mainwindow(object):
         self.groupBox_2.setTitle(QCoreApplication.translate("Mainwindow", u"\u662f\u5426\u53ef\u7528", None))
         self.radioButton.setText(QCoreApplication.translate("Mainwindow", u"\u4e0d\u53ef\u7528", None))
         self.radioButton_2.setText(QCoreApplication.translate("Mainwindow", u"\u53ef\u7528", None))
+        self.label_6.setText(QCoreApplication.translate("Mainwindow", u"\u9009\u62e9\u97f3\u9891\u64ad\u653e\u8bbe\u5907\n"
+"\u6ce8\uff1a\u7b2c\u4e00\u4e2a\u4e3a\u7cfb\u7edf\u9ed8\u8ba4\u8bbe\u5907", None))
+        self.comboBox.setItemText(0, QCoreApplication.translate("Mainwindow", u"123", None))
+
         self.label.setText(QCoreApplication.translate("Mainwindow", u"\u5982\u679c\u4f60\u89c9\u5f97\u8fd9\u6761\u6548\u679c\n"
 "\u592a\u5dee\u4e86\u8bf7\u9009\u62e9\u4e0d\u53ef\u7528", None))
         self.label_5.setText(QCoreApplication.translate("Mainwindow", u"\u5f53\u524d\u7f16\u53f7\uff1a1024", None))
